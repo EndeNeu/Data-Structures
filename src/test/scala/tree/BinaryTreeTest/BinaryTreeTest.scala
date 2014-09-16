@@ -1,6 +1,6 @@
-package BinaryTreeTest
+package tree.BinaryTreeTest
 
-import com.ebusiello.fds.tree.BinaryTree
+import com.ebusiello.fds.tree.binaryTree.BinaryTree
 import org.specs2.mutable.Specification
 
 
