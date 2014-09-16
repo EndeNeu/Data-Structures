@@ -1,13 +1,13 @@
 package tree.BinaryTreeTest
 
-import com.ebusiello.fds.tree.binaryTree.BinaryTree
+import com.ebusiello.fds.tree.binaryTree.searchTree.BinarySearchTree
 import org.specs2.mutable.Specification
 
 
 class BinaryTreeTest extends Specification {
 
-  val emptyBinaryTree = BinaryTree.empty[Int]
-  val binaryTree: BinaryTree[Int] = emptyBinaryTree ++ 3 ++ 4 ++ 5
+  val emptyBinaryTree = BinarySearchTree.emptyTree[Int]
+  val binaryTree: BinarySearchTree[Int] = emptyBinaryTree ++ 3 ++ 4 ++ 5
 
   "Empty BinaryTree" should {
     "be empty" in {
@@ -22,7 +22,7 @@ class BinaryTreeTest extends Specification {
       binaryTree.find(6) must beEqualTo(false)
     }
     "correctly map" in {
-      val mappedBinaryTree: BinaryTree[Int] = binaryTree.map(_ * 3)
+      val mappedBinaryTree: BinarySearchTree[Int] = binaryTree.map(_ * 3)
       println(binaryTree.stringify)
 
       println(binaryTree.sort.stringify)

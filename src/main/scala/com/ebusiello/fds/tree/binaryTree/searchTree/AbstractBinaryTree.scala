@@ -35,9 +35,9 @@ trait AbstractBinaryCommon[T] {
 /**
  *
  */
-private[binaryTree] abstract class AbstractBinaryTree[T, S[_]] extends AbstractBinaryCommon[T] with Tree {
+private[binaryTree] abstract class AbstractBinaryTree[T] extends AbstractBinaryCommon[T] with Tree {
 
-  def insert(mValue: T)(implicit ord: Ordering[T]): S[T]
+  def insert(mValue: T)(implicit ord: Ordering[T]): BinarySearchTree[T]
 
   // TODO map should return a normal binary tree because the ordering clause could not be respected
   def map[V](f: T => V): BinarySearchTree[V]

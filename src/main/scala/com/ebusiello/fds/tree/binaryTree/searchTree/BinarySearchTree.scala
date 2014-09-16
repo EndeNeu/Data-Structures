@@ -17,7 +17,7 @@ import com.ebusiello.fds.tree.binaryTree.EmptyNode
  *  if it's the value we return true, if it's smaller we look in the left part, else in the right part.
  *  The same goes for insert.
  */
-class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree] with SortableTree[T, BinarySearchTree] {
+class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T] with SortableTree[T, BinarySearchTree] {
 
   /**
    * Tree insert (which basically is a head.insert).
