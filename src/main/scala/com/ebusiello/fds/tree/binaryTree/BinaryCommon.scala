@@ -16,15 +16,10 @@ trait BinaryCommon[T] {
    */
   def foldTree[S](z: S)(f: (S, T) => S)(compose: (S, S) => S): S
 
-  /**
-   * Reduce a tree
-   */
-  def reduceBinaryTree[S](f: (T, T) => T): T
 
   /**
    * if a tree/node is empty or not.
    */
   def isEmpty: Boolean
-
 
 }

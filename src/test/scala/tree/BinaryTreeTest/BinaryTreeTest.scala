@@ -15,6 +15,9 @@ class BinaryTreeTest extends Specification {
       (emptyBinaryTree ++ 3).isEmpty must beEqualTo(false)
     }
     "correctly find" in {
+
+      println(binaryTree.reduceBinaryTree[Long](0L)(_ + _.toLong)(_ + _))
+
       emptyBinaryTree.find(1) must beEqualTo(false)
       binaryTree.find(3) must beEqualTo(true)
       binaryTree.find(4) must beEqualTo(true)

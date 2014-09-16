@@ -62,6 +62,9 @@ private[binaryTree] abstract class AbstractBinaryTree[T, S[_], A[_]](head: Abstr
   def foldTree[P](z: P)(f: (P, T) => P)(compose: (P, P) => P): P =
     head.foldTree(z)(f)(compose)
 
+  def reduceBinaryTree[P](default: P)(f: (P, T) => P)(compose: (P, P) => P): P =
+    foldTree(default)(f)(compose)
+
 }
 
 

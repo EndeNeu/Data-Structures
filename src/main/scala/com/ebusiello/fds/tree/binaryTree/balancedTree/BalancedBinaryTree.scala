@@ -9,8 +9,4 @@ class BalancedBinaryTree[T](val head: AbstractBinaryNode[T]) extends AbstractBin
   // TODO map should return a normal binary tree because the ordering clause could not be respected
   override def map[V](f: (T) => V): BalancedBinaryTree[V] = ???
 
-  /**
-   * Reduce a tree
-   */
-  override def reduceBinaryTree[S](f: (T, T) => T): T = ???
 }

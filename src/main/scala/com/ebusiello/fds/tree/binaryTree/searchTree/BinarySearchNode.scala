@@ -36,7 +36,6 @@ private[binaryTree] final class BinaryNode[T](val value: T, val left: AbstractBi
     f(compose(z, compose(left.foldTree(z)(f)(compose), right.foldTree(z)(f)(compose))), value)
   }
 
-  override def reduceBinaryTree[S](f: (T, T) => T): T = ???
 }
 
 private[binaryTree] object BinaryNode {

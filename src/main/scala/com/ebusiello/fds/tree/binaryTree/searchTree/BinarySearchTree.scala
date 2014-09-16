@@ -45,7 +45,7 @@ class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinar
    * Non empty tree
    *
    *     Tree   -- insert(v) -->   Tree                       Tree
-   *       |                        |                           |
+   *       |                        |                          |
    *     N(v)                      N(v)  -- insert(v) -->     N(v)
    *    /   \                     /   \                      /   \
    *   E    E                    E    E                    N(v)  E
@@ -82,13 +82,11 @@ class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinar
    */
   override def sort(implicit ord: Ordering[T]): BinarySearchTree[T] = {
     foldTree(List[T]())((acc, curr) => acc :+ curr)((s1, s2) => s1 ++ s2)
-      //.filter(node => node.isInstanceOf[EmptyNode[T]])
+      //.filter(node => !node.isInstanceOf[EmptyNode[T]])
       .sorted
       .foldLeft(BinarySearchTree.emptyTree[T])((tree, value) => tree.insert(value))
   }
 
-  // TODO
-  override def reduceBinaryTree[S](f: (T, T) => T): T = ???
 }
 
 object BinarySearchTree {
