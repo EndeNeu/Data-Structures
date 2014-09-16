@@ -1,8 +1,8 @@
 package com.ebusiello.fds.tree.binaryTree.searchTree
 
 import com.ebusiello.fds.tree.SortableTree
-import com.ebusiello.fds.tree.binaryTree.EmptyNode
-import com.ebusiello.fds.tree.binaryTree.tree.BalancedBinaryTree
+import com.ebusiello.fds.tree.binaryTree.{AbstractBinaryNode, AbstractBinaryTree, EmptyNode}
+import com.ebusiello.fds.tree.binaryTree.balancedTree.BalancedBinaryTree
 
 /**
  * A binary tree is composed of nodes, a node can be empty (emptyNode) or hold a value (node). A node
@@ -18,19 +18,8 @@ import com.ebusiello.fds.tree.binaryTree.tree.BalancedBinaryTree
  *  if it's the value we return true, if it's smaller we look in the left part, else in the right part.
  *  The same goes for insert.
  */
-class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, BalancedBinaryTree] with SortableTree[T, BinarySearchTree] {
+class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, BalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
 
-  /**
-   * Tree insert (which basically is a head.insert).
-   */
-  def ++(mValue: T)(implicit ord: Ordering[T]): BinarySearchTree[T] =
-    insert(mValue)
-
-  /**
-   * Stringify a tree.
-   */
-  def stringify: String =
-    head.toString
 
   /**
    * Return the tree head wrapped in an option, if the head is an empty node return None.
@@ -39,12 +28,6 @@ class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinar
     case node: BinaryNode[T] => Some(node)
     case _ => None
   }
-
-  /**
-   * Whether a tree is empty or not depends on his head.
-   */
-  override def isEmpty: Boolean =
-    head.isEmpty
 
   /**
    * Insert an element of type T in a tree, if the tree is empty
@@ -78,20 +61,6 @@ class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinar
     else new BinarySearchTree[T](head.insert(mValue))
 
   /**
-   * Find an element of type T traversing the tree, if this node hold that element
-   * return true, if it's smaller than the held value, recurse the left branch,
-   * else the right.
-   *
-   *    2 -- search(3) -->   3 > 2                   2
-   *   / \                   /   \                 /  \
-   *  1  3                  1    3  -- search(3)  1   3 == 3 => true
-   *
-   */
-  override def find(mValue: T)(implicit ord: Ordering[T]): Boolean =
-    if (isEmpty) false
-    else head.find(mValue)
-
-  /**
    * Map a function over a tree, this returns a new tree which is not a search tree
    * this is due to the fact that mapping a function could break the left-right law
    * (eg, if we map -1 on all the nodes)
@@ -118,18 +87,7 @@ class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinar
       .foldLeft(BinarySearchTree.emptyTree[T])((tree, value) => tree.insert(value))
   }
 
-  /**
-   * Fold a tree, apply a function to all the nodes of a tree and iteratively
-   * build a new value of type S.
-   *
-   * @note is it possible to avoid compose?
-   */
-  override def foldTree[S](z: S)(f: (S, T) => S)(compose: (S, S) => S): S =
-    head.foldTree(z)(f)(compose)
-
-  /**
-   * TODO
-   */
+  // TODO
   override def reduceBinaryTree[S](f: (T, T) => T): T = ???
 }
 

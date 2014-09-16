@@ -1,5 +1,7 @@
 package com.ebusiello.fds.tree.binaryTree.searchTree
 
+import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
+
 private[binaryTree] final class BinaryNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBinaryNode[T] {
 
   override def toString =

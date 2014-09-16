@@ -1,6 +1,6 @@
 package com.ebusiello.fds.tree.binaryTree
 
-import searchTree.{AbstractBinaryNode, BinaryNode}
+import searchTree.BinaryNode
 
 private[binaryTree] final class EmptyNode[T] extends AbstractBinaryNode[T] {
 
