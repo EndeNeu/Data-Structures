@@ -21,6 +21,7 @@ class BinaryTreeTest extends Specification {
       binaryTree.find(5) must beEqualTo(true)
       binaryTree.find(6) must beEqualTo(false)
     }
+    /*
     "correctly map" in {
       val mappedBinaryTree: BinarySearchTree[Int] = binaryTree.map(_ * 3)
       println(binaryTree.stringify)
@@ -43,5 +44,6 @@ class BinaryTreeTest extends Specification {
       mappedBinaryTree.find(5 * 3) must beEqualTo(true)
       mappedBinaryTree.find(6 * 3) must beEqualTo(false)
     }
+    */
   }
 }
