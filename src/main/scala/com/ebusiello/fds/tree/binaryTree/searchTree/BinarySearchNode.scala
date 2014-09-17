@@ -2,7 +2,13 @@ package com.ebusiello.fds.tree.binaryTree.searchTree
 
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
-private[binaryTree] final class BinaryNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBinaryNode[T] {
+private[binaryTree] final class BinarySearchNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBinaryNode[T] {
+
+  override def leftRelativeDepth: Int =
+    1 + left.leftRelativeDepth
+
+  override def rightRelativeDepth: Int =
+    1 + rightRelativeDepth
 
   override def toString =
     left.toString + "--T(" + value.toString + ")--" + right.toString
@@ -19,17 +25,17 @@ private[binaryTree] final class BinaryNode[T](val value: T, val left: AbstractBi
     }
   }
 
-  override def insert(mValue: T)(implicit ord: Ordering[T]): BinaryNode[T] = this match {
-    case BinaryNode(_, _, _) if mValue == value => this
-    case BinaryNode(_, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]) =>
+  override def insert(mValue: T)(implicit ord: Ordering[T]): BinarySearchNode[T] = this match {
+    case BinarySearchNode(_, _, _) if mValue == value => this
+    case BinarySearchNode(_, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]) =>
       import ord.mkOrderingOps
-      if (mValue < value) new BinaryNode(value, l.insert(mValue), r)
-      else new BinaryNode(value, l, r.insert(mValue))
+      if (mValue < value) new BinarySearchNode(value, l.insert(mValue), r)
+      else new BinarySearchNode(value, l, r.insert(mValue))
   }
 
-  override def map[S](f: T => S): BinaryNode[S] = this match {
-    case BinaryNode(_, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]) =>
-      new BinaryNode[S](f(value), l.map(f), r.map(f))
+  override def map[S](f: T => S): BinarySearchNode[S] = this match {
+    case BinarySearchNode(_, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]) =>
+      new BinarySearchNode[S](f(value), l.map(f), r.map(f))
   }
 
   override def foldTree[S](z: S)(f: (S, T) => S)(compose: (S, S) => S): S = {
@@ -38,12 +44,12 @@ private[binaryTree] final class BinaryNode[T](val value: T, val left: AbstractBi
 
 }
 
-private[binaryTree] object BinaryNode {
+private[binaryTree] object BinarySearchNode {
 
-  def apply[T](value: T, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]): BinaryNode[T] =
-    new BinaryNode[T](value, l, r)
+  def apply[T](value: T, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]): BinarySearchNode[T] =
+    new BinarySearchNode[T](value, l, r)
 
-  def unapply[T](t: BinaryNode[T]) =
+  def unapply[T](t: BinarySearchNode[T]) =
     Option(t.value, t.left, t.right)
 
 }

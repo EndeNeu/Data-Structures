@@ -2,7 +2,7 @@ package com.ebusiello.fds.tree.binaryTree.searchTree
 
 import com.ebusiello.fds.tree.SortableTree
 import com.ebusiello.fds.tree.binaryTree.{AbstractBinaryNode, AbstractBinaryTree, EmptyNode}
-import com.ebusiello.fds.tree.binaryTree.balancedTree.BalancedBinaryTree
+import com.ebusiello.fds.tree.binaryTree.balancedTree.{LeftBalancedBinaryTree, BalancedBinaryTree}
 
 /**
  * A binary tree is composed of nodes, a node can be empty (emptyNode) or hold a value (node). A node
@@ -18,14 +18,14 @@ import com.ebusiello.fds.tree.binaryTree.balancedTree.BalancedBinaryTree
  *  if it's the value we return true, if it's smaller we look in the left part, else in the right part.
  *  The same goes for insert.
  */
-class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, BalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
+final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, BalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
 
 
   /**
    * Return the tree head wrapped in an option, if the head is an empty node return None.
    */
-  def getHead: Option[BinaryNode[T]] = head match {
-    case node: BinaryNode[T] => Some(node)
+  def getHead: Option[BinarySearchNode[T]] = head match {
+    case node: BinarySearchNode[T] => Some(node)
     case _ => None
   }
 
@@ -57,7 +57,7 @@ class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinar
    * @return
    */
   override def insert(mValue: T)(implicit ord: Ordering[T]): BinarySearchTree[T] =
-    if (isEmpty) new BinarySearchTree[T](new BinaryNode[T](mValue, new EmptyNode, new EmptyNode))
+    if (isEmpty) new BinarySearchTree[T](new BinarySearchNode[T](mValue, new EmptyNode, new EmptyNode))
     else new BinarySearchTree[T](head.insert(mValue))
 
   /**
@@ -65,9 +65,9 @@ class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinar
    * this is due to the fact that mapping a function could break the left-right law
    * (eg, if we map -1 on all the nodes)
    */
-  override def map[V](f: T => V): BalancedBinaryTree[V] =
-    if (isEmpty) new BalancedBinaryTree[V](new EmptyNode)
-    else new BalancedBinaryTree[V](head.map(f))
+  override def map[V](f: T => V): LeftBalancedBinaryTree[V] =
+    if (isEmpty) new LeftBalancedBinaryTree[V](new EmptyNode)
+    else new LeftBalancedBinaryTree[V](head.map(f))
 
   /**
    * Sort a search tree, note that sorting will always yield a right tree:
