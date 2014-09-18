@@ -9,13 +9,21 @@ private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left:
 
   def isLeft: Boolean
 
+  // TODO this is shit should be generalized, the problem is how to call toRight.
   def toRight: RightBalancedBinaryNode[T] = this match {
-    case RightBalancedBinaryNode(_, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[T](value, l.toRight, r.toRight)
+    case LeftBalancedBinaryNode(_, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[T](value, l.toRight, r.toRight)
+    case LeftBalancedBinaryNode(_, l: EmptyBalancedBinarySearchNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[T](value, l, r.toRight)
+    case LeftBalancedBinaryNode(_, l: LeftBalancedBinaryNode[T], r: EmptyBalancedBinarySearchNode[T]) => new RightBalancedBinaryNode[T](value, l.toRight, r)
+    case LeftBalancedBinaryNode(_, l: EmptyBalancedBinarySearchNode[T], r: EmptyBalancedBinarySearchNode[T]) => new RightBalancedBinaryNode[T](value, l, r)
     case _ => throw new Exception("")
   }
 
+  // TODO this is shit should be generalized, the problem is how to call toLeft.
   def toLeft: LeftBalancedBinaryNode[T] = this match {
-    case RightBalancedBinaryNode(_, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[T](value, l.toLeft, r.toLeft)
+    case LeftBalancedBinaryNode(_, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[T](value, l.toLeft, r.toLeft)
+    case LeftBalancedBinaryNode(_, l: EmptyBalancedBinarySearchNode[T], r: RightBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[T](value, l, r.toLeft)
+    case LeftBalancedBinaryNode(_, l: LeftBalancedBinaryNode[T], r: EmptyBalancedBinarySearchNode[T]) => new LeftBalancedBinaryNode[T](value, l.toLeft, r)
+    case LeftBalancedBinaryNode(_, l: EmptyBalancedBinarySearchNode[T], r: EmptyBalancedBinarySearchNode[T]) => new LeftBalancedBinaryNode[T](value, l, r)
     case _ => throw new Exception("")
   }
 
@@ -43,7 +51,6 @@ private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left:
    */
   override def foldTree[V](z: V)(f: (V, T) => V)(compose: (V, V) => V): V = ???
 
-
 }
 
 private[binaryTree] object BalancedBinaryNode {
@@ -65,7 +72,6 @@ private[binaryTree] final class LeftBalancedBinaryNode[T](value: T, left: Abstra
 
   override def isLeft: Boolean =
     true
-
 }
 
 private[binaryTree] object LeftBalancedBinaryNode {
@@ -86,27 +92,9 @@ private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: Abstr
 
   override def isLeft: Boolean =
     false
-
-
 }
 
 private[binaryTree] object RightBalancedBinaryNode {
   def unapply[T](t: RightBalancedBinaryNode[T]) =
     Option(t.value, t.left, t.right)
-}
-
-object BalancedConversions {
-
-  implicit def convertToLeft[T](n: AbstractBinaryNode[T]): LeftBalancedBinaryNode[T] =
-    n match {
-      case l: LeftBalancedBinaryNode[T] => l
-      case _ => throw new Exception("Tree structure is inconsistent")
-    }
-
-  implicit def convertToRight[T](n: AbstractBinaryNode[T]): RightBalancedBinaryNode[T] =
-    n match {
-      case r: RightBalancedBinaryNode[T] => r
-      case _ => throw new Exception("Tree structure is inconsistent")
-    }
-
 }
