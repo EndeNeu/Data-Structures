@@ -4,17 +4,17 @@ import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
 private[binaryTree] final class BinarySearchNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBinaryNode[T] {
 
-  override def leftRelativeDepth: Int =
-    1 + left.leftRelativeDepth
-
-  override def rightRelativeDepth: Int =
-    1 + rightRelativeDepth
-
   override def toString =
     left.toString + "--T(" + value.toString + ")--" + right.toString
 
   override def isEmpty: Boolean =
     false
+
+  override def leftRelativeDepth: Int =
+    (if (left.isEmpty && right.isEmpty) 1 else 0) + left.leftRelativeDepth
+
+  override def rightRelativeDepth: Int =
+    (if (left.isEmpty && right.isEmpty) 1 else 0) + right.rightRelativeDepth
 
   override def find(mValue: T)(implicit ord: Ordering[T]): Boolean = {
     if (mValue == value) true
@@ -25,17 +25,17 @@ private[binaryTree] final class BinarySearchNode[T](val value: T, val left: Abst
     }
   }
 
-  override def insert(mValue: T)(implicit ord: Ordering[T]): BinarySearchNode[T] = this match {
+  override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBinaryNode[T] = this match {
     case BinarySearchNode(_, _, _) if mValue == value => this
     case BinarySearchNode(_, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]) =>
       import ord.mkOrderingOps
-      if (mValue < value) new BinarySearchNode(value, l.insert(mValue), r)
-      else new BinarySearchNode(value, l, r.insert(mValue))
+      if (mValue < value) new BinarySearchNode[T](value, l.insert(mValue), r)
+      else new BinarySearchNode[T](value, l, r.insert(mValue))
   }
 
-  override def map[S](f: T => S): BinarySearchNode[S] = this match {
-    case BinarySearchNode(_, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]) =>
-      new BinarySearchNode[S](f(value), l.map(f), r.map(f))
+  override def map[V](f: T => V): AbstractBinaryNode[V] = this match {
+    case BinarySearchNode(_, l: BinarySearchNode[T], r: BinarySearchNode[T]) =>
+      new BinarySearchNode[V](f(value), l.map(f), r.map(f))
   }
 
   override def foldTree[S](z: S)(f: (S, T) => S)(compose: (S, S) => S): S = {
@@ -45,9 +45,6 @@ private[binaryTree] final class BinarySearchNode[T](val value: T, val left: Abst
 }
 
 private[binaryTree] object BinarySearchNode {
-
-  def apply[T](value: T, l: AbstractBinaryNode[T], r: AbstractBinaryNode[T]): BinarySearchNode[T] =
-    new BinarySearchNode[T](value, l, r)
 
   def unapply[T](t: BinarySearchNode[T]) =
     Option(t.value, t.left, t.right)
