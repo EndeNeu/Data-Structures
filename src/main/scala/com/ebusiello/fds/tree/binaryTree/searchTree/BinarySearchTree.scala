@@ -2,7 +2,7 @@ package com.ebusiello.fds.tree.binaryTree.searchTree
 
 import com.ebusiello.fds.tree.SortableTree
 import com.ebusiello.fds.tree.binaryTree.{AbstractBinaryNode, AbstractBinaryTree}
-import com.ebusiello.fds.tree.binaryTree.balancedTree.{BalancedBinaryTree, LeftBalancedBinaryTree}
+import com.ebusiello.fds.tree.binaryTree.balancedTree.{AbstractBalancedBinaryTree, LeftBalancedBinaryTree}
 
 /**
  * A binary tree is composed of nodes, a node can be empty (emptyNode) or hold a value (node). A node
@@ -18,7 +18,7 @@ import com.ebusiello.fds.tree.binaryTree.balancedTree.{BalancedBinaryTree, LeftB
  *  if it's the value we return true, if it's smaller we look in the left part, else in the right part.
  *  The same goes for insert.
  */
-final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, BalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
+final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, AbstractBalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
 
 
   /**
@@ -72,13 +72,13 @@ final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends Abstrac
   /**
    * Sort a search tree, note that sorting will always yield a right tree:
    *
-   *    2 -- sort -->          1
-   *   / \                    / \
-   *  1  3                   E  2
-   *                           / \
-   *                          E  3
-   *                            / \
-   *                           E  E
+   *    2 -- sort -->      1
+   *   / \                / \
+   *  1  3               E  2
+   *                       / \
+   *                      E  3
+   *                        / \
+   *                       E  E
    */
   override def sort(implicit ord: Ordering[T]): BinarySearchTree[T] = {
     foldTree(List[T]())((acc, curr) => acc :+ curr)((s1, s2) => s1 ++ s2)

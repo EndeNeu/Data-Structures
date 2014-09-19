@@ -22,4 +22,6 @@ trait BinaryCommon[T] {
    */
   def isEmpty: Boolean
 
+  final def nonEmpty: Boolean = !isEmpty
+
 }
