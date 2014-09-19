@@ -13,8 +13,9 @@ final class RightBalancedBinaryTree[T](head: AbstractBinaryNode[T]) extends Abst
     case balancedNode: BalancedBinaryNode[T] => new LeftBalancedBinaryTree[T](balancedNode.toLeft)
   }
 
-  override def map[V](f: (T) => V): AbstractBalancedBinaryTree[V] =
-    new RightBalancedBinaryTree[V](head.map(f))
+  override def map[V](f: (T) => V): AbstractBalancedBinaryTree[V] = head match {
+    case balancedNode: BalancedBinaryNode[T] => new RightBalancedBinaryTree[V](balancedNode.map(f))
+  }
 
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBalancedBinaryTree[T] =
     if (isEmpty) new RightBalancedBinaryTree[T](new RightBalancedBinaryNode[T](mValue, new EmptyBalancedBinarySearchNode[T, RightBalancedBinaryNode[T]], new EmptyBalancedBinarySearchNode[T, RightBalancedBinaryNode[T]]))

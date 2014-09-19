@@ -2,7 +2,7 @@ package com.ebusiello.fds.tree.binaryTree.searchTree
 
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
-private[binaryTree] final class EmptyBinarySearchNode[T] extends AbstractBinaryNode[T] {
+private[binaryTree] final class EmptyBinarySearchNode[T] extends AbstractBinarySearchNode[T] {
 
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBinaryNode[T] =
     new BinarySearchNode[T](mValue, new EmptyBinarySearchNode[T], new EmptyBinarySearchNode[T])

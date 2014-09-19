@@ -2,7 +2,18 @@ package com.ebusiello.fds.tree.binaryTree.searchTree
 
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
-private[binaryTree] final class BinarySearchNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBinaryNode[T] {
+/**
+ * This class is needed to have a common supertype with a map method inside for both binary search nodes
+ * and binary empty search nodes.
+ */
+private[binaryTree] abstract class AbstractBinarySearchNode[T] extends AbstractBinaryNode[T] {
+  def map[V](f: T => V): AbstractBinaryNode[V]
+}
+
+/**
+ * Implementation of AbstractBinarySearchNode and AbstractBinaryNode
+ */
+private[binaryTree] final class BinarySearchNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBinarySearchNode[T] {
 
   override def toString =
     left.toString + "--T(" + value.toString + ")--" + right.toString

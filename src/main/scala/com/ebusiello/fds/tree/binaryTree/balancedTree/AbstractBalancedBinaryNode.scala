@@ -10,4 +10,7 @@ private[binaryTree] abstract class AbstractBalancedBinaryNode[T] extends Abstrac
   def toRight: AbstractBalancedBinaryNode[T]
 
   def toLeft: AbstractBalancedBinaryNode[T]
+
+  def map[V, VLR <: AbstractBalancedBinaryNode[V]](f: T => V): AbstractBinaryNode[V]
+
 }

@@ -67,7 +67,9 @@ final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends Abstrac
    */
   override def map[V](f: T => V): LeftBalancedBinaryTree[V] =
     if (isEmpty) new LeftBalancedBinaryTree[V](new EmptyBinarySearchNode[V])
-    else new LeftBalancedBinaryTree[V](head.map(f))
+    else head match {
+      case searchNode: BinarySearchNode[T] => new LeftBalancedBinaryTree[V](searchNode.map(f))
+    }
 
   /**
    * Sort a search tree, note that sorting will always yield a right tree:

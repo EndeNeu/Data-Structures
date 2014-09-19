@@ -49,8 +49,9 @@ private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: Abstr
   override def isLeft: Boolean =
     false
 
-  override def map[V](f: (T) => V): AbstractBinaryNode[V] =
-    new RightBalancedBinaryNode[V](f(value), left.map(f), right.map(f))
+  override def map[V, LR <: AbstractBalancedBinaryNode[V]](f: (T) => V): AbstractBinaryNode[V] = this match {
+    case RightBalancedBinaryNode(v, l: RightBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[V](f(value), l.map(f), r.map(f))
+  }
 }
 
 private[binaryTree] object RightBalancedBinaryNode {
