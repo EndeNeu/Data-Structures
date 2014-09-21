@@ -1,8 +1,8 @@
-package com.ebusiello.fds.tree.binaryTree.searchTree
+package com.ebusiello.fds.tree.binaryTree.search
 
-import com.ebusiello.fds.tree.SortableTree
+import com.ebusiello.fds.tree.{ASC, Direction, DESC, SortableTree}
 import com.ebusiello.fds.tree.binaryTree.{AbstractBinaryNode, AbstractBinaryTree}
-import com.ebusiello.fds.tree.binaryTree.balancedTree.{AbstractBalancedBinaryTree, LeftBalancedBinaryTree}
+import com.ebusiello.fds.tree.binaryTree.balanced.LeftBalancedBinaryTree
 
 /**
  * A binary tree is composed of nodes, a node can be empty (emptyNode) or hold a value (node). A node
@@ -18,7 +18,7 @@ import com.ebusiello.fds.tree.binaryTree.balancedTree.{AbstractBalancedBinaryTre
  *  if it's the value we return true, if it's smaller we look in the left part, else in the right part.
  *  The same goes for insert.
  */
-final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, AbstractBalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
+final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, LeftBalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
 
 
   /**
@@ -82,16 +82,20 @@ final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends Abstrac
    *                        / \
    *                       E  E
    */
-  override def sort(implicit ord: Ordering[T]): BinarySearchTree[T] = {
-    foldTree(List[T]())((acc, curr) => acc :+ curr)((s1, s2) => s1 ++ s2)
-      //.filter(node => !node.isInstanceOf[EmptyNode[T]])
-      .sorted
-      .foldLeft(BinarySearchTree.emptyTree[T])((tree, value) => tree.insert(value))
+  override def sort(direction: Direction = DESC)(implicit ord: Ordering[T]): BinarySearchTree[T] = {
+    val folded = foldTree(List[T]())((acc, curr) => acc :+ curr)((s1, s2) => s1 ++ s2).sorted
+    direction match {
+      case DESC => BinarySearchTree.fromColl(folded.sorted)
+      case ASC => BinarySearchTree.fromColl(folded.sorted(ord.reverse))
+    }
   }
 
 }
 
 object BinarySearchTree {
+
+  def fromColl[T, S <: TraversableOnce[T]](coll: S)(implicit ord: Ordering[T]): BinarySearchTree[T] =
+    coll.foldLeft(BinarySearchTree.emptyTree[T])(_.insert(_))
 
   /**
    * Easily create an empty tree.

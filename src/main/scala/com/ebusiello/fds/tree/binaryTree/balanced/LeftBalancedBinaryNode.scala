@@ -1,4 +1,4 @@
-package com.ebusiello.fds.tree.binaryTree.balancedTree
+package com.ebusiello.fds.tree.binaryTree.balanced
 
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 

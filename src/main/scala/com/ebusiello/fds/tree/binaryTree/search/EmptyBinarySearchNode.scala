@@ -1,4 +1,4 @@
-package com.ebusiello.fds.tree.binaryTree.searchTree
+package com.ebusiello.fds.tree.binaryTree.search
 
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
@@ -9,12 +9,6 @@ private[binaryTree] final class EmptyBinarySearchNode[T] extends AbstractBinaryS
 
   override def map[V](f: (T) => V): AbstractBinaryNode[V] =
     new EmptyBinarySearchNode[V]
-
-  override def leftRelativeDepth: Int =
-    0
-
-  override def rightRelativeDepth: Int =
-    0
 
   override def toString =
     "E"
@@ -27,4 +21,10 @@ private[binaryTree] final class EmptyBinarySearchNode[T] extends AbstractBinaryS
 
   override def foldTree[S](z: S)(f: (S, T) => S)(compose: (S, S) => S): S =
     z
+
+  override def leftRelativeDepth: Int =
+    0
+
+  override def rightRelativeDepth: Int =
+    0
 }

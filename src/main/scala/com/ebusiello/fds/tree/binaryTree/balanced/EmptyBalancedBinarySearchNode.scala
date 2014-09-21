@@ -1,6 +1,6 @@
-package com.ebusiello.fds.tree.binaryTree.balancedTree
+package com.ebusiello.fds.tree.binaryTree.balanced
 
-import com.ebusiello.fds.tree.binaryTree.searchTree.BinarySearchNode
+import com.ebusiello.fds.tree.binaryTree.search.BinarySearchNode
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 import scala.language.higherKinds
 

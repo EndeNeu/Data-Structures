@@ -1,4 +1,4 @@
-package com.ebusiello.fds.tree.binaryTree.balancedTree
+package com.ebusiello.fds.tree.binaryTree.balanced
 
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
@@ -25,7 +25,7 @@ private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left:
    */
   def toLeft: AbstractBalancedBinaryNode[T] = this match {
     case RightBalancedBinaryNode(_, l: AbstractBalancedBinaryNode[T], r: AbstractBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[T](value, l.toLeft, r.toLeft)
-    case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[T](v, l.toRight, r.toRight)
+    case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[T](v, l.toRight, r.toRight)
   }
 
   /**

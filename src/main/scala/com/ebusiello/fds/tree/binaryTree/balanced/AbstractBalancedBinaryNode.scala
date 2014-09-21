@@ -1,4 +1,4 @@
-package com.ebusiello.fds.tree.binaryTree.balancedTree
+package com.ebusiello.fds.tree.binaryTree.balanced
 
 import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
@@ -12,5 +12,9 @@ private[binaryTree] abstract class AbstractBalancedBinaryNode[T] extends Abstrac
   def toLeft: AbstractBalancedBinaryNode[T]
 
   def map[V, VLR <: AbstractBalancedBinaryNode[V]](f: T => V): AbstractBinaryNode[V]
+
+  def leftRelativeDepth: Int
+
+  def rightRelativeDepth: Int
 
 }
