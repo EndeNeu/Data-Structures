@@ -28,4 +28,9 @@ private[binaryTree] class EmptyBinarySearchNode[T] extends AbstractBinarySearchN
   override def rightRelativeDepth: Int =
     0
 
+  override def delete(mValue: T)(implicit ord: Ordering[T]): AbstractBinarySearchNode[T] =
+    this
+
+  override def findLeftMin(currMin: T)(implicit ord: Ordering[T]): T =
+    currMin
 }
