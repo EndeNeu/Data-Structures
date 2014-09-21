@@ -1,6 +1,5 @@
 package com.ebusiello.fds.tree.binaryTree.balanced
 
-import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 import scala.language.implicitConversions
 
 /**
@@ -13,7 +12,7 @@ import scala.language.implicitConversions
  *   / \  / \
  *  7  6 5  4
  */
-private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: AbstractBinaryNode[T], right: AbstractBinaryNode[T]) extends BalancedBinaryNode[T](value, left, right) {
+private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: AbstractBalancedBinaryNode[T], right: AbstractBalancedBinaryNode[T]) extends BalancedBinaryNode[T](value, left, right) {
 
   /**
    * To keep the tree balanced on insert we propagate the insert using the relative depth:
@@ -36,7 +35,7 @@ private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: Abstr
    *  4  9 E  E            E  8 9 4
    *
    */
-  override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBinaryNode[T] = this match {
+  override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBalancedBinaryNode[T] = this match {
     case RightBalancedBinaryNode(v, _, _) if mValue == v => this
     case RightBalancedBinaryNode(v, l, r) =>
       if (l.leftRelativeDepth > r.rightRelativeDepth) new RightBalancedBinaryNode[T](v, l, r.insert(mValue))
@@ -49,7 +48,7 @@ private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: Abstr
   override def isLeft: Boolean =
     false
 
-  override def map[V, LR <: AbstractBalancedBinaryNode[V]](f: (T) => V): AbstractBinaryNode[V] = this match {
+  override def map[V, LR <: AbstractBalancedBinaryNode[V]](f: (T) => V): AbstractBalancedBinaryNode[V] = this match {
     case RightBalancedBinaryNode(v, l: RightBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[V](f(value), l.map(f), r.map(f))
   }
 }

@@ -1,10 +1,11 @@
 package com.ebusiello.fds.tree.binaryTree.balanced
 
 import com.ebusiello.fds.tree.{ASC, DESC, Direction, SortableTree}
-import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
 
-
-final class RightBalancedBinaryTree[T](head: AbstractBinaryNode[T]) extends AbstractBalancedBinaryTree[T, RightBalancedBinaryTree, RightBalancedBinaryTree](head) with SortableTree[T, RightBalancedBinaryTree] {
+/**
+ * A variation of a AVL tree (Adelson-Velskii and Landis tree http://en.wikipedia.org/wiki/AVL_tree), the balancing has preference towards the right side.
+ */
+final class RightBalancedBinaryTree[T](head: AbstractBalancedBinaryNode[T]) extends AbstractBalancedBinaryTree[T, RightBalancedBinaryTree, RightBalancedBinaryTree](head) with SortableTree[T, RightBalancedBinaryTree] {
 
   override def toRight: RightBalancedBinaryTree[T] = head match {
     case balancedNode: BalancedBinaryNode[T] => new RightBalancedBinaryTree[T](balancedNode.toRight)
@@ -19,7 +20,7 @@ final class RightBalancedBinaryTree[T](head: AbstractBinaryNode[T]) extends Abst
   }
 
   override def insert(mValue: T)(implicit ord: Ordering[T]): RightBalancedBinaryTree[T] =
-    if (isEmpty) new RightBalancedBinaryTree[T](new RightBalancedBinaryNode[T](mValue, new EmptyBalancedBinarySearchNode[T, RightBalancedBinaryNode[T]], new EmptyBalancedBinarySearchNode[T, RightBalancedBinaryNode[T]]))
+    if (isEmpty) new RightBalancedBinaryTree[T](new RightBalancedBinaryNode[T](mValue, new RightBalancedEmptyNode[T], new RightBalancedEmptyNode[T]))
     else new RightBalancedBinaryTree[T](head.insert(mValue))
 
   override def sort(direction: Direction)(implicit ord: Ordering[T]): RightBalancedBinaryTree[T] = {
@@ -40,5 +41,5 @@ object RightBalancedBinaryTree {
   /**
    * Easily create an empty tree.
    */
-  def emptyTree[T] = new RightBalancedBinaryTree[T](new EmptyBalancedBinarySearchNode[T, RightBalancedBinaryNode[T]])
+  def emptyTree[T] = new RightBalancedBinaryTree[T](new RightBalancedEmptyNode[T])
 }

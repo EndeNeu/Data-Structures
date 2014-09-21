@@ -1,14 +1,14 @@
 package com.ebusiello.fds.tree.binaryTree.search
 
-import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
+import com.ebusiello.fds.tree.binaryTree.balanced.{LeftBalancedEmptyNode, AbstractBalancedBinaryNode}
 
-private[binaryTree] final class EmptyBinarySearchNode[T] extends AbstractBinarySearchNode[T] {
+private[binaryTree] class EmptyBinarySearchNode[T] extends AbstractBinarySearchNode[T] {
 
-  override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBinaryNode[T] =
+  override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBinarySearchNode[T] =
     new BinarySearchNode[T](mValue, new EmptyBinarySearchNode[T], new EmptyBinarySearchNode[T])
 
-  override def map[V](f: (T) => V): AbstractBinaryNode[V] =
-    new EmptyBinarySearchNode[V]
+  override def map[V](f: (T) => V): AbstractBalancedBinaryNode[V] =
+    new LeftBalancedEmptyNode[V]
 
   override def toString =
     "E"
@@ -27,4 +27,5 @@ private[binaryTree] final class EmptyBinarySearchNode[T] extends AbstractBinaryS
 
   override def rightRelativeDepth: Int =
     0
+
 }

@@ -7,17 +7,9 @@ import scala.language.higherKinds
 /**
  *
  */
-private[binaryTree] abstract class AbstractBinaryTree[T, S[_], A[_]](head: AbstractBinaryNode[T]) extends BinaryCommon[T] with Tree {
+private[binaryTree] abstract class BasicBinaryTree[T, S[_], A[_]](head: BasicBinaryNode[T]) extends BinaryCommon[T] with Tree {
 
-  // -- need implementation
-
-  def insert(mValue: T)(implicit ord: Ordering[T]): S[T]
-
-  // TODO map should return a normal binary tree because the ordering clause could not be respected
   def map[V](f: T => V): A[V]
-
-
-  // -- Generics
 
   /**
    * Whether a tree is empty or not depends on his head.
@@ -30,13 +22,6 @@ private[binaryTree] abstract class AbstractBinaryTree[T, S[_], A[_]](head: Abstr
    */
   def stringify: String =
     head.toString
-
-  /**
-   * Tree insert (which basically is a head.insert).
-   */
-  def ++(mValue: T)(implicit ord: Ordering[T]): S[T] =
-    insert(mValue)
-
 
   /**
    * Find an element of type T traversing the tree, if this node hold that element
@@ -63,5 +48,17 @@ private[binaryTree] abstract class AbstractBinaryTree[T, S[_], A[_]](head: Abstr
 
   def reduceBinaryTree[P](default: P)(f: (P, T) => P)(compose: (P, P) => P): P =
     foldTree(default)(f)(compose)
+
+}
+
+abstract class BasicBinaryTreeWithInsert[T, S[_], A[_]](head: BasicBinaryNode[T]) extends BasicBinaryTree[T, S, A](head){
+
+  def insert(mValue: T)(implicit ord: Ordering[T]): S[T]
+
+  /**
+   * Tree insert (which basically is a head.insert).
+   */
+  def ++(mValue: T)(implicit ord: Ordering[T]): S[T] =
+    insert(mValue)
 
 }

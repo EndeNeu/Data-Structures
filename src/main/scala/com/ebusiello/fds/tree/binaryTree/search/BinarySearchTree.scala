@@ -1,8 +1,7 @@
 package com.ebusiello.fds.tree.binaryTree.search
 
-import com.ebusiello.fds.tree.{ASC, Direction, DESC, SortableTree}
-import com.ebusiello.fds.tree.binaryTree.{AbstractBinaryNode, AbstractBinaryTree}
-import com.ebusiello.fds.tree.binaryTree.balanced.LeftBalancedBinaryTree
+import com.ebusiello.fds.tree.{ASC, DESC, Direction, SortableTree}
+import com.ebusiello.fds.tree.binaryTree.balanced._
 
 /**
  * A binary tree is composed of nodes, a node can be empty (emptyNode) or hold a value (node). A node
@@ -18,7 +17,7 @@ import com.ebusiello.fds.tree.binaryTree.balanced.LeftBalancedBinaryTree
  *  if it's the value we return true, if it's smaller we look in the left part, else in the right part.
  *  The same goes for insert.
  */
-final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends AbstractBinaryTree[T, BinarySearchTree, LeftBalancedBinaryTree](head) with SortableTree[T, BinarySearchTree] {
+final class BinarySearchTree[T](val head: AbstractBinarySearchNode[T]) extends AbstractBinarySearchTree[T](head) with SortableTree[T, BinarySearchTree] {
 
 
   /**
@@ -66,7 +65,7 @@ final class BinarySearchTree[T](val head: AbstractBinaryNode[T]) extends Abstrac
    * (eg, if we map -1 on all the nodes)
    */
   override def map[V](f: T => V): LeftBalancedBinaryTree[V] =
-    if (isEmpty) new LeftBalancedBinaryTree[V](new EmptyBinarySearchNode[V])
+    if (isEmpty) new LeftBalancedBinaryTree[V](new LeftBalancedEmptyNode[V])
     else head match {
       case searchNode: BinarySearchNode[T] => new LeftBalancedBinaryTree[V](searchNode.map(f))
     }

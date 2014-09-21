@@ -1,12 +1,10 @@
 package com.ebusiello.fds.tree.binaryTree.balanced
 
-import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
-
 /**
  * Semi concrete implementation of an abstract balanced binary node, generic methods are implemented here,
  * specific ones are implemented in subclasses.
  */
-private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBalancedBinaryNode[T] {
+private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left: AbstractBalancedBinaryNode[T], val right: AbstractBalancedBinaryNode[T]) extends AbstractBalancedBinaryNode[T] {
 
   def isRight: Boolean
 
@@ -15,7 +13,7 @@ private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left:
   /**
    * Mutate a LeftBalanced node into a right one.
    */
-  def toRight: AbstractBalancedBinaryNode[T] = this match {
+  override def toRight: BalancedBinaryNode[T] = this match {
     case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[T](v, l.toRight, r.toRight)
     case RightBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[T](v, l.toRight, r.toRight)
   }
@@ -23,9 +21,9 @@ private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left:
   /**
    * Mutate a RightBalanced node into a right one.
    */
-  def toLeft: AbstractBalancedBinaryNode[T] = this match {
+  override def toLeft: BalancedBinaryNode[T] = this match {
     case RightBalancedBinaryNode(_, l: AbstractBalancedBinaryNode[T], r: AbstractBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[T](value, l.toLeft, r.toLeft)
-    case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[T](v, l.toRight, r.toRight)
+    case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[T](v, l.toRight, r.toRight)
   }
 
   /**

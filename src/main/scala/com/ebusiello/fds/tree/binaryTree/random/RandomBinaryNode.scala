@@ -1,19 +1,16 @@
-package com.ebusiello.fds.tree.binaryTree.unordered
+package com.ebusiello.fds.tree.binaryTree.random
 
-import com.ebusiello.fds.tree.binaryTree.AbstractBinaryNode
-import com.ebusiello.fds.tree.binaryTree.search.AbstractBinarySearchNode
-
-class UnorderedBinaryNode[T](val value: T, val left: AbstractBinaryNode[T], val right: AbstractBinaryNode[T]) extends AbstractBinarySearchNode[T] {
+class RandomBinaryNode[T](val value: T, val left: AbstractRandomBinaryNode[T], val right: AbstractRandomBinaryNode[T]) extends AbstractRandomBinaryNode[T] {
 
   def randomizer = new scala.util.Random()
 
   /**
-   * Unordered tree uses a random generator, if it returns true insert to the left,
+   * RandomBinaryTrees uses a random generator, if it returns true insert to the left,
    * else insert to the right
    *
    * @note duplicate are allowed
    */
-  override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBinaryNode[T] =
+  override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractRandomBinaryNode[T] =
     if (randomizer.nextBoolean()) left.insert(mValue)
     else right.insert(mValue)
 
@@ -36,14 +33,14 @@ class UnorderedBinaryNode[T](val value: T, val left: AbstractBinaryNode[T], val 
   override def rightRelativeDepth: Int =
     (if (left.nonEmpty || right.nonEmpty) 1 else 0) + right.rightRelativeDepth
 
-  override def map[V](f: (T) => V): AbstractBinaryNode[V] = this match {
-    case UnorderedBinaryNode(_, l: UnorderedBinaryNode[T], r: UnorderedBinaryNode[T]) =>
-      new UnorderedBinaryNode[V](f(value), l.map(f), r.map(f))
+  override def map[V](f: (T) => V): AbstractRandomBinaryNode[V] = this match {
+    case RandomBinaryNode(_, l: RandomBinaryNode[T], r: RandomBinaryNode[T]) =>
+      new RandomBinaryNode[V](f(value), l.map(f), r.map(f))
   }
 }
 
-private[binaryTree] object UnorderedBinaryNode {
-  def unapply[T](t: UnorderedBinaryNode[T]) =
+private[binaryTree] object RandomBinaryNode {
+  def unapply[T](t: RandomBinaryNode[T]) =
     Option(t.value, t.left, t.right)
 }
 
