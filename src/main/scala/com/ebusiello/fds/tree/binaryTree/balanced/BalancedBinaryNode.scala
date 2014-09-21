@@ -43,6 +43,11 @@ private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left:
   override def isEmpty: Boolean =
     false
 
+  /**
+   * Note that finding a value in a balanced tree can lead to the full tree traversal, that is
+   * if the value is found the function will keep traversing the tree looking for the value until reaches
+   * an empty node.
+   */
   override def find(mValue: T)(implicit ord: Ordering[T]): Boolean =
     if (value == mValue) true
     else left.find(mValue) || right.find(mValue)

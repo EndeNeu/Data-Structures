@@ -1,7 +1,7 @@
 package com.ebusiello.fds.tree.binaryTree.balanced
 
 /**
- * A right balanced node is one that favours the left branch, the depth is used as a discriminator,
+ * A left balanced node is one that favours the left branch, the depth is used as a discriminator,
  * if you insert the numbers from 1 to 7 in order you will end up with this tree
  *
  *        1

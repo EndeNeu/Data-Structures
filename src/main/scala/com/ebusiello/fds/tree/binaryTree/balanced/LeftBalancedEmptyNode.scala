@@ -1,5 +1,8 @@
 package com.ebusiello.fds.tree.binaryTree.balanced
 
+/**
+ * Concrete implementation of a left balanced empty node.
+ */
 class LeftBalancedEmptyNode[T] extends EmptyBalancedBinaryNode[T] {
 
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBalancedBinaryNode[T] =

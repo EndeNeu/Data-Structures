@@ -2,6 +2,10 @@ package com.ebusiello.fds.tree.binaryTree.balanced
 
 import scala.language.higherKinds
 
+/**
+ * Semi concrete empty node for a balanced tree
+ * @tparam T
+ */
 private[binaryTree] abstract class EmptyBalancedBinaryNode[T] extends AbstractBalancedBinaryNode[T] {
 
   override def toRight: AbstractBalancedBinaryNode[T] =

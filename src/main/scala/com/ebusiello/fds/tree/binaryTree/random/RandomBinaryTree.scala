@@ -1,12 +1,10 @@
 package com.ebusiello.fds.tree.binaryTree.random
 
-import com.ebusiello.fds.tree.{DESC, Direction, SortableTree}
-
 /**
  * RandomBinaryTree trees have random insert and can hold duplicated values.
  * As empty node we reuse EmptyBinarySearchNode, they have the same functionality.
  */
-class RandomBinaryTree[T](head: AbstractRandomBinaryNode[T]) extends AbstractRandomBinaryTree[T, RandomBinaryTree, RandomBinaryTree](head) with SortableTree[T, RandomBinaryTree] {
+class RandomBinaryTree[T](head: AbstractRandomBinaryNode[T]) extends AbstractRandomBinaryTree[T, RandomBinaryTree, RandomBinaryTree](head) {
 
   override def insert(mValue: T)(implicit ord: Ordering[T]): RandomBinaryTree[T] =
     if (isEmpty) new RandomBinaryTree[T](new RandomBinaryNode[T](mValue, new EmptyRandomBinaryNode, new EmptyRandomBinaryNode))
@@ -17,11 +15,6 @@ class RandomBinaryTree[T](head: AbstractRandomBinaryNode[T]) extends AbstractRan
     else head match {
       case searchNode: RandomBinaryNode[T] => new RandomBinaryTree[V](searchNode.map(f))
     }
-
-  /**
-   * Sorting unordered tree is implemented via shuffling (the order is random and direction doesn't matter)
-   */
-  override def sort(direction: Direction = DESC)(implicit ord: Ordering[T]): RandomBinaryTree[T] = shuffle
 
   /**
    * Shuffle a tree.
