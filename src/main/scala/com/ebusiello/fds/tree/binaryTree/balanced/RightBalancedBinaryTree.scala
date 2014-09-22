@@ -1,11 +1,11 @@
 package com.ebusiello.fds.tree.binaryTree.balanced
 
-import com.ebusiello.fds.tree.{ASC, DESC, Direction, SortableTree}
+import com.ebusiello.fds.tree._
 
 /**
  * A variation of a AVL tree (Adelson-Velskii and Landis tree http://en.wikipedia.org/wiki/AVL_tree), the balancing has preference towards the right side.
  */
-final class RightBalancedBinaryTree[T](head: AbstractBalancedBinaryNode[T]) extends AbstractBalancedBinaryTree[T, RightBalancedBinaryTree, RightBalancedBinaryTree](head) with SortableTree[T, RightBalancedBinaryTree] {
+final class RightBalancedBinaryTree[T](head: AbstractBalancedBinaryNode[T]) extends AbstractBalancedBinaryTree[T, RightBalancedBinaryTree, RightBalancedBinaryTree](head) with Sortable[T, RightBalancedBinaryTree] {
 
   override def toRight: RightBalancedBinaryTree[T] = head match {
     case balancedNode: BalancedBinaryNode[T] => new RightBalancedBinaryTree[T](balancedNode.toRight)

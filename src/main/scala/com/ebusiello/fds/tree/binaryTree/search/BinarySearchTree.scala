@@ -17,7 +17,7 @@ import com.ebusiello.fds.tree.binaryTree.balanced._
  *  if it's the value we return true, if it's smaller we look in the left part, else in the right part.
  *  The same goes for insert.
  */
-final class BinarySearchTree[T](val head: AbstractBinarySearchNode[T]) extends AbstractBinarySearchTree[T](head) with SortableTree[T, BinarySearchTree] with Deletable[T, BinarySearchTree]{
+final class BinarySearchTree[T](val head: AbstractBinarySearchNode[T]) extends AbstractBinarySearchTree[T](head) with Sortable[T, BinarySearchTree] with Deletable[T, BinarySearchTree]{
 
 
   /**
