@@ -13,4 +13,12 @@ private[binaryTree] abstract class AbstractBalancedBinaryTree[T, S[_], A[_]](val
 
   def toLeft: LeftBalancedBinaryTree[T]
 
+  def getHead = head match {
+    case l: LeftBalancedBinaryNode[T] => l
+    case r: RightBalancedBinaryNode[T] => r
+  }
+
+  def length: Int =
+    head.length
+
 }

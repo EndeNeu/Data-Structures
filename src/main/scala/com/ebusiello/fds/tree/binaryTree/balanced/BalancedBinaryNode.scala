@@ -55,6 +55,9 @@ private[binaryTree] abstract class BalancedBinaryNode[T](val value: T, val left:
   override def foldTree[V](z: V)(f: (V, T) => V)(compose: (V, V) => V): V =
     f(compose(z, compose(left.foldTree(z)(f)(compose), right.foldTree(z)(f)(compose))), value)
 
+  override def length: Int =
+    1 + left.length + right.length
+
 }
 
 private[binaryTree] object BalancedBinaryNode {

@@ -23,14 +23,17 @@ final class RightBalancedBinaryTree[T](head: AbstractBalancedBinaryNode[T]) exte
     if (isEmpty) new RightBalancedBinaryTree[T](new RightBalancedBinaryNode[T](mValue, new RightBalancedEmptyNode[T], new RightBalancedEmptyNode[T]))
     else new RightBalancedBinaryTree[T](head.insert(mValue))
 
+  new Ordering[Int] {
+    override def compare(x: Int, y: Int): Int = if(x > y) x else y
+  }
+
   override def sort(direction: Direction)(implicit ord: Ordering[T]): RightBalancedBinaryTree[T] = {
     val folded = foldTree(List[T]())((acc, curr) => acc :+ curr)((s1, s2) => s1 ++ s2)
     direction match {
-      case DESC => RightBalancedBinaryTree.fromColl(folded.sorted)
-      case ASC => RightBalancedBinaryTree.fromColl(folded.sorted(ord.reverse))
+      case DESC => RightBalancedBinaryTree.fromColl(folded.sorted(ord.reverse))
+      case ASC => RightBalancedBinaryTree.fromColl(folded.sorted)
     }
   }
-
 }
 
 object RightBalancedBinaryTree {

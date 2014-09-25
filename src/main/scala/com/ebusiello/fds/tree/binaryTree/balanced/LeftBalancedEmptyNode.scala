@@ -10,4 +10,6 @@ class LeftBalancedEmptyNode[T] extends EmptyBalancedBinaryNode[T] {
 
   override def map[V, VLR <: AbstractBalancedBinaryNode[V]](f: (T) => V): AbstractBalancedBinaryNode[V] =
     new LeftBalancedEmptyNode[V]
+
+  override def length: Int = 0
 }

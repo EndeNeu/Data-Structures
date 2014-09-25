@@ -16,4 +16,6 @@ private[binaryTree] abstract class AbstractBalancedBinaryNode[T] extends BasicBi
 
   def map[V, VLR <: AbstractBalancedBinaryNode[V]](f: T => V): AbstractBalancedBinaryNode[V]
 
+  def length: Int
+
 }

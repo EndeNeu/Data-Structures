@@ -15,9 +15,11 @@ final class LeftBalancedBinaryTree[T](head: AbstractBalancedBinaryNode[T]) exten
     case balancedNode: BalancedBinaryNode[T] => new LeftBalancedBinaryTree[T](balancedNode.toLeft)
   }
 
-  override def map[V](f: (T) => V): LeftBalancedBinaryTree[V] = head match {
-    case balancedNode: BalancedBinaryNode[T] => new LeftBalancedBinaryTree[V](balancedNode.map(f))
-  }
+  override def map[V](f: (T) => V): LeftBalancedBinaryTree[V] =
+    if (isEmpty) new LeftBalancedBinaryTree[V](new LeftBalancedEmptyNode[V])
+    else head match {
+      case balancedNode: BalancedBinaryNode[T] => new LeftBalancedBinaryTree[V](balancedNode.map(f))
+    }
 
   override def insert(mValue: T)(implicit ord: Ordering[T]): LeftBalancedBinaryTree[T] =
     if (isEmpty) new LeftBalancedBinaryTree[T](new LeftBalancedBinaryNode[T](mValue, new LeftBalancedEmptyNode[T], new LeftBalancedEmptyNode[T]))
@@ -26,11 +28,10 @@ final class LeftBalancedBinaryTree[T](head: AbstractBalancedBinaryNode[T]) exten
   override def sort(direction: Direction)(implicit ord: Ordering[T]): LeftBalancedBinaryTree[T] = {
     val folded = foldTree(List[T]())((acc, curr) => acc :+ curr)((s1, s2) => s1 ++ s2)
     direction match {
-      case DESC => LeftBalancedBinaryTree.fromColl(folded.sorted)
-      case ASC => LeftBalancedBinaryTree.fromColl(folded.sorted(ord.reverse))
+      case DESC => LeftBalancedBinaryTree.fromColl(folded.sorted(ord.reverse))
+      case ASC => LeftBalancedBinaryTree.fromColl(folded.sorted)
     }
   }
-
 }
 
 object LeftBalancedBinaryTree {

@@ -12,17 +12,31 @@ class BinaryTreeSpec extends Specification {
   val binaryTree: BinarySearchTree[Int] = BinarySearchTree.fromColl(values)
   val nonEmpty: BinarySearchTree[Int] = BinarySearchTree.fromColl(values)
 
-  "For BinaryTree" should {
+  "BinaryTree" should {
+    "corretly be formed" in {
+
+      binaryTree.getHead match {
+        case bn: BinarySearchNode[Int] =>
+          bn.value must beEqualTo(3)
+          bn.left match {
+            case bl: BinarySearchNode[Int] => bl.value must beEqualTo(2)
+          }
+          bn.right match {
+            case bl: BinarySearchNode[Int] => bl.value must beEqualTo(4)
+          }
+      }
+    }
     "be empty" in {
       emptyBinaryTree.isEmpty must beEqualTo(true)
       (emptyBinaryTree ++ 3).isEmpty must beEqualTo(false)
     }
     "insert should work correctly " in {
-      val p = nonEmpty.getHead.map(n => {
-        n.value must beEqualTo(3)
-        n.left.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(2)
-        n.right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(4)
-      })
+      val p = nonEmpty.getHead match {
+        case h: BinarySearchNode[Int] =>
+          h.value must beEqualTo(3)
+          h.left.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(2)
+          h.right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(4)
+      }
 
       nonEmpty.isEmpty must beEqualTo(false)
       val listed = nonEmpty.foldTree(List.empty[Int])(_ :+ _)(_ ++ _)

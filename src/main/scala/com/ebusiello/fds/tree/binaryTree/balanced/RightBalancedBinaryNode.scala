@@ -12,7 +12,7 @@ import scala.language.implicitConversions
  *   / \  / \
  *  7  6 5  4
  */
-private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: AbstractBalancedBinaryNode[T], right: AbstractBalancedBinaryNode[T]) extends BalancedBinaryNode[T](value, left, right) {
+final class RightBalancedBinaryNode[T](value: T, left: AbstractBalancedBinaryNode[T], right: AbstractBalancedBinaryNode[T]) extends BalancedBinaryNode[T](value, left, right) {
 
   /**
    * To keep the tree balanced on insert we propagate the insert using the relative depth:
@@ -37,9 +37,16 @@ private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: Abstr
    */
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBalancedBinaryNode[T] = this match {
     case RightBalancedBinaryNode(v, _, _) if mValue == v => this
-    case RightBalancedBinaryNode(v, l, r) =>
-      if (l.leftRelativeDepth > r.rightRelativeDepth) new RightBalancedBinaryNode[T](v, l, r.insert(mValue))
+    case RightBalancedBinaryNode(v, l: RightBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) =>
+      if (r.rightRelativeDepth <= l.leftRelativeDepth) new RightBalancedBinaryNode[T](v, l, r.insert(mValue))
       else new RightBalancedBinaryNode[T](v, l.insert(mValue), r)
+
+    case RightBalancedBinaryNode(v, l: RightBalancedEmptyNode[T], r: RightBalancedBinaryNode[T]) =>
+      new RightBalancedBinaryNode[T](v, l.insert(mValue), r)
+
+    case RightBalancedBinaryNode(v, l: RightBalancedEmptyNode[T], r: RightBalancedEmptyNode[T]) =>
+      new RightBalancedBinaryNode[T](v, l, r.insert(mValue))
+
   }
 
   override def isRight: Boolean =
@@ -49,7 +56,7 @@ private[binaryTree] final class RightBalancedBinaryNode[T](value: T, left: Abstr
     false
 
   override def map[V, LR <: AbstractBalancedBinaryNode[V]](f: (T) => V): AbstractBalancedBinaryNode[V] = this match {
-    case RightBalancedBinaryNode(v, l: RightBalancedBinaryNode[T], r: RightBalancedBinaryNode[T]) => new RightBalancedBinaryNode[V](f(value), l.map(f), r.map(f))
+    case RightBalancedBinaryNode(v, l: AbstractBalancedBinaryNode[T], r: AbstractBalancedBinaryNode[T]) => new RightBalancedBinaryNode[V](f(value), l.map(f), r.map(f))
   }
 }
 

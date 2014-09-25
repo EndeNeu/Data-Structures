@@ -23,10 +23,8 @@ final class BinarySearchTree[T](val head: AbstractBinarySearchNode[T]) extends A
   /**
    * Return the tree head wrapped in an option, if the head is an empty node return None.
    */
-  def getHead: Option[BinarySearchNode[T]] = head match {
-    case node: BinarySearchNode[T] => Some(node)
-    case _ => None
-  }
+  def getHead: AbstractBinarySearchNode[T] =
+    head
 
   /**
    * Insert an element of type T in a tree, if the tree is empty
@@ -63,6 +61,7 @@ final class BinarySearchTree[T](val head: AbstractBinarySearchNode[T]) extends A
    * Map a function over a tree, this returns a new tree which is not a search tree
    * this is due to the fact that mapping a function could break the left-right law
    * (eg, if we map -1 on all the nodes)
+   * TODO give choice between a left and right tree.
    */
   override def map[V](f: T => V): LeftBalancedBinaryTree[V] =
     if (isEmpty) new LeftBalancedBinaryTree[V](new LeftBalancedEmptyNode[V])
@@ -71,7 +70,7 @@ final class BinarySearchTree[T](val head: AbstractBinarySearchNode[T]) extends A
     }
 
   /**
-   * Sort a search tree, note that sorting will always yield a right tree:
+   * Sort a search tree, note that sorting will always yield a right tree id the order is ascending, a lef tif it's descending:
    *
    *    2 -- sort -->      1
    *   / \                / \

@@ -10,12 +10,12 @@ package com.ebusiello.fds.tree.binaryTree.balanced
  *   / \  / \
  *  4  5 6  7
  */
-private[binaryTree] final class LeftBalancedBinaryNode[T](value: T, left: AbstractBalancedBinaryNode[T], right: AbstractBalancedBinaryNode[T]) extends BalancedBinaryNode[T](value, left, right) {
+final class LeftBalancedBinaryNode[T](value: T, left: AbstractBalancedBinaryNode[T], right: AbstractBalancedBinaryNode[T]) extends BalancedBinaryNode[T](value, left, right) {
 
   /**
    * To keep the tree balanced on insert we propagate the insert using the relative depth:
    *
-   *        1 -- insert 9 -->  1
+   *        1 -- insert 9 -->   1
    *      /  \                /  \
    *    2    3               2   3
    *   / \  / \             / \ / \
@@ -35,9 +35,16 @@ private[binaryTree] final class LeftBalancedBinaryNode[T](value: T, left: Abstra
    */
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBalancedBinaryNode[T] = this match {
     case LeftBalancedBinaryNode(v, _, _) if mValue == v => this
-    case LeftBalancedBinaryNode(v, l: AbstractBalancedBinaryNode[T], r: AbstractBalancedBinaryNode[T]) =>
+
+    case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: LeftBalancedBinaryNode[T]) =>
       if (l.leftRelativeDepth <= r.rightRelativeDepth) new LeftBalancedBinaryNode[T](v, l.insert(mValue), r)
       else new LeftBalancedBinaryNode[T](v, l, r.insert(mValue))
+
+    case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: LeftBalancedEmptyNode[T]) =>
+      new LeftBalancedBinaryNode[T](v, l, r.insert(mValue))
+
+    case LeftBalancedBinaryNode(v, l: LeftBalancedEmptyNode[T], r: LeftBalancedEmptyNode[T]) =>
+      new LeftBalancedBinaryNode[T](v, l.insert(mValue), r)
   }
 
   override def isRight: Boolean =
@@ -47,7 +54,7 @@ private[binaryTree] final class LeftBalancedBinaryNode[T](value: T, left: Abstra
     true
 
   override def map[V, LR <: AbstractBalancedBinaryNode[V]](f: (T) => V): AbstractBalancedBinaryNode[V] = this match {
-    case LeftBalancedBinaryNode(v, l: LeftBalancedBinaryNode[T], r: LeftBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[V](f(value), l.map(f), r.map(f))
+    case LeftBalancedBinaryNode(v, l: AbstractBalancedBinaryNode[T], r: AbstractBalancedBinaryNode[T]) => new LeftBalancedBinaryNode[V](f(value), l.map(f), r.map(f))
   }
 
 }
