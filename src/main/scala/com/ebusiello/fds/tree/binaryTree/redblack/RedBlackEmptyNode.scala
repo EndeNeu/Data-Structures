@@ -29,7 +29,7 @@ final class RedBlackEmptyNode[T](mColor: Color) extends AbstractRedBlackNode[T] 
 
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractRedBlackNode[T] = color match {
     case BLACK => new BlackNode[T](mValue, new RedBlackEmptyNode[T](RED), new RedBlackEmptyNode[T](RED))
-    case RED => new BlackNode[T](mValue, new RedBlackEmptyNode[T](BLACK), new RedBlackEmptyNode[T](BLACK))
+    case RED => new RedNode[T](mValue, new RedBlackEmptyNode[T](BLACK), new RedBlackEmptyNode[T](BLACK))
   }
 
   override def map[V](f: (T) => V): AbstractRedBlackNode[V] =

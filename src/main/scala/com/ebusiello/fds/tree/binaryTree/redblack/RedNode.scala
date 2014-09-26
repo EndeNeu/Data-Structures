@@ -5,6 +5,7 @@ final class RedNode[T](value: T, left: AbstractRedBlackNode[T], right: AbstractR
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractRedBlackNode[T] = this match {
     case RedNode(v, l: RedBlackEmptyNode[T], r: RedBlackEmptyNode[T]) => new RedNode[T](v, l.insert(mValue), r)
     case RedNode(v, l: BlackNode[T], r: BlackNode[T]) =>
+      // Favour the left side is both left and right are empty.
       if (l.leftRelativeDepth <= r.rightRelativeDepth) new RedNode[T](v, l.insert(mValue), r)
       else new RedNode[T](v, l, r.insert(mValue))
     case RedNode(v, l: BlackNode[T], r: RedBlackEmptyNode[T]) => new RedNode[T](v, l, r.insert(mValue))
@@ -15,7 +16,5 @@ final class RedNode[T](value: T, left: AbstractRedBlackNode[T], right: AbstractR
 }
 
 object RedNode {
-
   def unapply[T](r: RedNode[T]) = Some(r.value, r.left, r.right)
-
 }
