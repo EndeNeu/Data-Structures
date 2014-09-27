@@ -16,17 +16,17 @@ import com.ebusiello.fds.queue.{QueueException, AbstractCyclicQueue}
  * push 4 -> |2|3|4|
  *
  */
-final class CyclicQueue[T](private[this] val queue: List[T], size: Long, overwrite: Boolean = true) extends AbstractCyclicQueue[T, CyclicQueue] {
+final class CyclicQueue[T](size: Long, overwrite: Boolean = true, private[this] val queue: List[T] = List()) extends AbstractCyclicQueue[T, CyclicQueue] {
 
   override def push(value: T): CyclicQueue[T] =
     queue match {
       case head :: tail =>
         // if the size is reached and overwrite is set, drop the ehad and append the newest.
-        if (queue.size == size && overwrite) new CyclicQueue[T](tail :+ value, size, overwrite)
+        if (queue.size == size && overwrite) new CyclicQueue[T](size, overwrite, tail :+ value)
         else if(queue.size == size && !overwrite) throw new QueueException("Cyclic queue size exhausted.")
-        else new CyclicQueue[T](queue :+ value, size, overwrite)
+        else new CyclicQueue[T](size, overwrite, queue :+ value)
       // if the list is empty create a new queue with one element.
-      case _ => new CyclicQueue[T](List(value), size, overwrite)
+      case _ => new CyclicQueue[T](size, overwrite, List(value))
     }
 
   /**
@@ -36,7 +36,7 @@ final class CyclicQueue[T](private[this] val queue: List[T], size: Long, overwri
   override def dequeue: CyclicQueue[T] =
     queue match {
       case head :: tail =>
-        new CyclicQueue[T](tail, size, overwrite)
+        new CyclicQueue[T](size, overwrite, tail)
       case _ =>
         throw new QueueException("dequeue called on empty queue.")
     }
