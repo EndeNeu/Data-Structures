@@ -28,10 +28,8 @@ final class Stack[T](stack: List[T] = List()) extends AbstractStack[T, Stack] {
 
 
 object Stack {
-
   def empty[T]: Stack[T] =
     new Stack[T]()
-
 }
 
 class StackException(message: String) extends Exception
