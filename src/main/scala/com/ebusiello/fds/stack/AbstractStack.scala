@@ -6,8 +6,6 @@ abstract class AbstractStack[T, S[_]] {
 
   def push(mValue: T): S[T]
 
-  def pushCollection(collection: Traversable[T]): S[T]
-
   def top: T
 
   def pop: S[T]

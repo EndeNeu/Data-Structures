@@ -1,27 +1,30 @@
 package com.ebusiello.fds.stack
 
-final class Stack[T](stack: List[T] = List()) extends AbstractStack[T, Stack] {
+/**
+ * Stacks hold a reference to the first element in the linked list, operations
+ * are propagated using the head.
+ */
+final class Stack[T](head: AbstractStackNode[T]) extends AbstractStack[T, Stack] {
 
-  private[this] val mStack: List[T] = stack
-
+  /**
+   * Pushing a value changes the head of the stack and the current head becomes
+   * the next of the new node.
+   */
   override def push(mValue: T): Stack[T] =
-    new Stack[T](mStack :+ mValue)
-
-  override def pushCollection(collection: Traversable[T]): Stack[T] =
-    new Stack[T](mStack ++ collection)
+    new Stack[T](new StackNode[T](mValue, head))
 
   override def top: T =
-    if (nonEmpty) mStack.last
+    if (nonEmpty) head.top
     else throw new StackException("top on empty stack!")
 
   override def isEmpty: Boolean =
-    mStack.isEmpty
+    head.isEmpty
 
   def nonEmpty: Boolean =
     !isEmpty
 
   override def pop: Stack[T] =
-    if (nonEmpty) new Stack[T](mStack.init)
+    if (nonEmpty) new Stack[T](head.pop)
     else throw new StackException("pop on empty stack!")
 
 }
@@ -29,7 +32,10 @@ final class Stack[T](stack: List[T] = List()) extends AbstractStack[T, Stack] {
 
 object Stack {
   def empty[T]: Stack[T] =
-    new Stack[T]()
+    new Stack[T](new EmptyStackNode[T])
+
+  def apply[T](value: T) =
+    new Stack[T](new StackNode[T](value, new EmptyStackNode[T]))
 }
 
 class StackException(message: String) extends Exception
