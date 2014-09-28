@@ -1,7 +1,5 @@
 package com.ebusiello.fds.queue.queue
 
-import com.ebusiello.fds.queue.queue.AbstractQueueNode
-
 /**
  * A node hold a value and a reference to the previous node in the queue.
  */

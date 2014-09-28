@@ -1,7 +1,5 @@
 package com.ebusiello.fds.queue.queue
 
-import com.ebusiello.fds.queue.queue.AbstractQueueNode
-
 final class EmptyQueueNode[T] extends AbstractQueueNode[T] {
 
   override def dequeue: AbstractQueueNode[T] =
