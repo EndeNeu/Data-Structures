@@ -22,11 +22,6 @@ class QueueSpec extends Specification {
       nonEmpty.enqueue(10).top must beEqualTo(1)
       nonEmpty.enqueue(10).dequeue.top must beEqualTo(2)
 
-      println(nonEmpty.dequeue.top)
-      println(nonEmpty.dequeue.dequeue.top)
-      println(nonEmpty.dequeue.dequeue.dequeue.top)
-      println(nonEmpty.dequeue.dequeue.dequeue.dequeue.top)
-
       nonEmpty.dequeue.dequeue.dequeue.dequeue.top must beEqualTo(8)
       nonEmpty.dequeue.dequeue.dequeue.top must beEqualTo(7)
       nonEmpty.dequeue.dequeue.top must beEqualTo(5)
