@@ -1,6 +1,6 @@
 package com.ebusiello.fds.stack
 
-import com.ebusiello.fds.queue.QueueException
+import com.ebusiello.fds.queue.queue.QueueException
 
 /**
  * Represents the end of a linked list.
@@ -16,16 +16,13 @@ final class EmptyStackNode[T] extends AbstractStackNode[T] {
    *
    * calling pop makes the node [1] look for the [E] next.
    */
-  override def next: EmptyStackNode[T] =
+  override def previous: EmptyStackNode[T] =
     this
-
-  override def top: T =
-    throw new QueueException("Top on empty node.")
 
   override def isEmpty: Boolean =
     true
 
   override def pop: AbstractStackNode[T] =
-    throw new QueueException("Pop on empty node.")
+    throw new QueueException("Pop on empty queue.")
 
 }

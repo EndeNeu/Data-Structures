@@ -1,21 +1,31 @@
 package com.ebusiello.fds.stack
 
 /**
- * Stacks hold a reference to the first element in the linked list, operations
- * are propagated using the head.
+ * LIFO
+ *
+ * Stacks hold a reference to the first element in the linked list (head).
+ *
+ *                 | <- push
+ *          front  |
+ *   [v, v, v, v]
+ *                 |
+ *                 |-> pop
+ *
+ *
  */
-final class Stack[T](head: AbstractStackNode[T]) extends AbstractStack[T, Stack] {
+final class Stack[T](head: AbstractStackNode[T] = new EmptyStackNode[T]) extends AbstractStack[T, Stack] {
 
   /**
    * Pushing a value changes the head of the stack and the current head becomes
-   * the next of the new node.
+   * the previous of the new node.
    */
   override def push(mValue: T): Stack[T] =
     new Stack[T](new StackNode[T](mValue, head))
 
-  override def top: T =
-    if (nonEmpty) head.top
-    else throw new StackException("top on empty stack!")
+  override def top: T = head match {
+    case e: EmptyStackNode[T] => throw new StackException("Top on empty stack")
+    case n: StackNode[T] => n.value
+  }
 
   override def isEmpty: Boolean =
     head.isEmpty
@@ -24,8 +34,7 @@ final class Stack[T](head: AbstractStackNode[T]) extends AbstractStack[T, Stack]
     !isEmpty
 
   override def pop: Stack[T] =
-    if (nonEmpty) new Stack[T](head.pop)
-    else throw new StackException("pop on empty stack!")
+    new Stack[T](head.previous)
 
 }
 

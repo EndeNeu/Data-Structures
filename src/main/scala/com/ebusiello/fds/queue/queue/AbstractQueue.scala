@@ -1,4 +1,6 @@
-package com.ebusiello.fds.queue
+package com.ebusiello.fds.queue.queue
+
+import scala.language.higherKinds
 
 abstract class AbstractQueue[T, S[_]] {
 
@@ -9,8 +11,6 @@ abstract class AbstractQueue[T, S[_]] {
   def isEmpty: Boolean
 
   def top: T
-
-  def back: T
 
 }
 

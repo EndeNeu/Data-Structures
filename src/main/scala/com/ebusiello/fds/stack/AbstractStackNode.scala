@@ -2,9 +2,7 @@ package com.ebusiello.fds.stack
 
 abstract class AbstractStackNode[T] {
 
-  def next: AbstractStackNode[T]
-
-  def top: T
+  def previous: AbstractStackNode[T]
 
   def isEmpty: Boolean
 

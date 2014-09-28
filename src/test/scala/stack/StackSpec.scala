@@ -6,26 +6,23 @@ import org.specs2.mutable.Specification
 class StackSpec extends Specification {
 
   val emptyStack = Stack.empty[Int]
-  val nonEmptyStack = new Stack[Int](List(1, 4, 3, 7, 5, 6, 7))
-
+  val nonEmptyStack = new Stack[Int]().push(1).push(7).push(3).push(5)
 
   "Stack" should {
-    "be empy" in {
+    "be empty" in {
       emptyStack.isEmpty must beEqualTo(true)
       emptyStack.push(3).isEmpty must beEqualTo(false)
       nonEmptyStack.isEmpty must beEqualTo(false)
-      nonEmptyStack.pop.pop.pop.pop.pop.pop.pop.isEmpty must beEqualTo(true)
+      nonEmptyStack.pop.pop.pop.pop.isEmpty must beEqualTo(true)
     }
     "insert" in {
       emptyStack.push(1).top must beEqualTo(1)
-      nonEmptyStack.push(1).top must beEqualTo(1)
-      nonEmptyStack.top must beEqualTo(7)
+      nonEmptyStack.push(10).top must beEqualTo(10)
+      nonEmptyStack.top must beEqualTo(5)
     }
     "pop" in {
-
-      nonEmptyStack.pop.top must beEqualTo(6)
-      nonEmptyStack.pop.pop.top must beEqualTo(5)
-
+      nonEmptyStack.pop.top must beEqualTo(3)
+      nonEmptyStack.pop.pop.top must beEqualTo(7)
     }
   }
 
