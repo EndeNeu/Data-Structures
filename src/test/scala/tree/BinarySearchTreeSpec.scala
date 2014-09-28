@@ -5,7 +5,7 @@ import com.ebusiello.fds.tree.binaryTree.search.{BinarySearchNode, BinarySearchT
 import org.specs2.mutable.Specification
 
 
-class BinaryTreeSpec extends Specification {
+class BinarySearchTreeSpec extends Specification {
 
   val values = List(3,2,4)
   val emptyBinaryTree = BinarySearchTree.emptyTree[Int]

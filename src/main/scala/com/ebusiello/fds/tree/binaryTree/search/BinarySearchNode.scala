@@ -2,7 +2,6 @@ package com.ebusiello.fds.tree.binaryTree.search
 
 import com.ebusiello.fds.tree.binaryTree.balanced.{AbstractBalancedBinaryNode, LeftBalancedBinaryNode}
 
-
 /**
  * Implementation of AbstractBinarySearchNode and AbstractBinaryNode
  */
@@ -31,11 +30,12 @@ final class BinarySearchNode[T](val value: T, val left: AbstractBinarySearchNode
    * Insert is ordered, the left branch must always hold a value minor than the current value
    * and the right branch must always hold a value which is major than the current value
    *
-   * 1  -- insert(4) -->  1
-   * / \                  / \
-   * 2  3                 2  3
-   * / \
+   *     1  -- insert(4) -->  1
+   *    / \                  / \
+   *   2  3                 2  3
+   *  / \
    * E  4
+   *
    */
   override def insert(mValue: T)(implicit ord: Ordering[T]): AbstractBinarySearchNode[T] = this match {
     case BinarySearchNode(_, _, _) if mValue == value => this
