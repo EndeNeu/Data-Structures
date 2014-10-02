@@ -59,5 +59,63 @@ class BinarySearchTreeSpec extends Specification {
       mappedBinaryTree.find(4 * 3) must beEqualTo(true)
       mappedBinaryTree.find(6 * 3) must beEqualTo(false)
     }
+    "delete" in {
+
+      val tree = BinarySearchTree.fromColl[Int, List[Int]](List(1, -10, 10, 6, 5, 9, 15, 14, 20))
+
+      val j = tree.delete(10)
+
+      tree.delete(10).getHead match {
+        case head: BinarySearchNode[Int] =>
+          head.value must beEqualTo(1)
+          head.right match {
+            case right: BinarySearchNode[Int] =>
+              right.value must beEqualTo(6)
+          }
+      }
+
+      val tree2 = BinarySearchTree.fromColl[Int, List[Int]](List(1, -10, 10, 6, 9, 15, 14, 20))
+
+      tree2.delete(10).getHead match {
+        case head: BinarySearchNode[Int] =>
+          head.value must beEqualTo(1)
+          head.right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(9)
+          head.right.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(6)
+      }
+
+      val tree3 = BinarySearchTree.fromColl[Int, List[Int]](List(1, -10, 10, 6, 7, 8, 15, 14, 20))
+
+      tree3.delete(10).getHead match {
+        case head: BinarySearchNode[Int] =>
+          head.value must beEqualTo(1)
+          head.right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(7)
+          head.right.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(6)
+          head.right.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(8)
+      }
+
+      val tree4 = BinarySearchTree.fromColl[Int, List[Int]](List(1, -10, 10, 9, 8, 7))
+
+      tree4.delete(10).getHead match {
+        case head: BinarySearchNode[Int] =>
+          head.value must beEqualTo(1)
+          head.right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(9)
+          head.right.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(8)
+          head.right.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(7)
+      }
+
+      val tree5 = BinarySearchTree.fromColl[Int, List[Int]](List(1, -10, 10, 8, 15, 9, 7))
+
+      val bbb = tree5.delete(10)
+
+      tree5.delete(10).getHead match {
+        case head: BinarySearchNode[Int] =>
+          head.value must beEqualTo(1)
+          head.right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(8)
+          head.right.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(7)
+          head.right.asInstanceOf[BinarySearchNode[Int]].left.asInstanceOf[BinarySearchNode[Int]].right.asInstanceOf[BinarySearchNode[Int]].value must beEqualTo(9)
+      }
+
+       tree.delete(10).find(10) must beEqualTo(false)
+    }
   }
 }

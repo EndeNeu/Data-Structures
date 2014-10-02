@@ -5,11 +5,11 @@ package com.ebusiello.fds.stack
  *
  * Stacks hold a reference to the first element in the linked list (head).
  *
- *                 | <- push
+ *                 | <- push 4
  *          front  |
- *   [v, v, v, v]
+ *   [v, v, v, 4]
  *                 |
- *                 |-> pop
+ *                 |-> pop 4
  *
  *
  */
@@ -37,7 +37,6 @@ final class Stack[T](head: AbstractStackNode[T] = new EmptyStackNode[T]) extends
     new Stack[T](head.previous)
 
 }
-
 
 object Stack {
   def empty[T]: Stack[T] =
