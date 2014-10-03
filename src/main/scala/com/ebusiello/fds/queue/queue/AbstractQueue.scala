@@ -13,5 +13,3 @@ abstract class AbstractQueue[T, S[_]] {
   def top: T
 
 }
-
-class QueueException(message: String) extends Exception

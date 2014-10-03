@@ -1,5 +1,7 @@
 package com.ebusiello.fds.queue.queue
 
+import com.ebusiello.fds.queue.QueueException
+
 /**
  * FIFO
  *
