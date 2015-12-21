@@ -1,13 +1,11 @@
 package com.ebusiello.fds.queue.cyclic
 
-import com.ebusiello.fds.queue.queue.QueueException
-
 /**
  * Cyclicity is virtual, the nodes are a linked list where the last node points to an empty one
- * like in any normal queue, cyclicity is enforced by the queue which keeps track of the list length,
+ * like in any normal com.ebusiello.fds.queue, cyclicity is enforced by the com.ebusiello.fds.queue which keeps track of the list length,
  * if the maximum length is reached drop the head and ppint to the second element.
  */
-final class CyclicQueue[T](size: Int, head: AbstractCyclicNode[T] = new EmptyCyclicNode[T]) extends AbstractCyclicQueue[T, CyclicQueue] {
+/*final class CyclicQueue[T](size: Int, head: AbstractCyclicNode[T] = new EmptyCyclicNode[T]) extends AbstractCyclicQueue[T, CyclicQueue] {
 
   //TODO insert is O(N) because we need the length of the list.
   override def enqueue(value: T): CyclicQueue[T] =
@@ -31,4 +29,4 @@ final class CyclicQueue[T](size: Int, head: AbstractCyclicNode[T] = new EmptyCyc
     case n: CyclicNode[T] => n.value
   }
 
-}
+}*/ 

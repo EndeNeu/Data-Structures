@@ -1,5 +1,0 @@
-package tree
-
-class RandomTreeSpec {
-
-}
