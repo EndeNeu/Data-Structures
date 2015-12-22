@@ -5,7 +5,7 @@ import org.scalatest.{ Matchers, WordSpecLike }
 class BinaryTreeSpec extends WordSpecLike with Matchers {
 
   trait TestContext {
-    val emptyTree = BinaryTree.emptyTree[Int]
+    val emptyTree = BinarySearchTree.emptyTree[Int]
   }
 
   "Binary com.ebusiello.fds.tree" should {
@@ -43,10 +43,50 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
     }
 
     "correctly remove an element" in new TestContext {
-      val nonEmptyTree = emptyTree.insert(2).insert(1).insert(5).insert(4).insert(6)
-      nonEmptyTree.remove(4).head.right.left shouldBe a[EmptyBinaryNode[_]]
+      val nonEmptyTree = emptyTree.insert(50).insert(100).insert(30).insert(20).insert(40).insert(35).insert(45).insert(37)
+      println(nonEmptyTree.stringify)
+      println(nonEmptyTree.remove(30).stringify)
 
-      emptyTree.remove(0).head shouldBe a[EmptyBinaryNode[_]]
+      // https://en.wikibooks.org/wiki/Data_Structures/Trees#/media/File:Bstreedeletenotrightchildexample.jpg
+      val n1 = nonEmptyTree.remove(30)
+      println(n1.stringify)
+      n1.head.value should be(50)
+      n1.head.right.value should be(100)
+      n1.head.left.value should be(35)
+      n1.head.left.left.value should be(20)
+      n1.head.left.right.value should be(40)
+      n1.head.left.right.left.value should be(37)
+      n1.head.left.right.right.value should be(45)
+
+      emptyTree.remove(0).head shouldBe a[EmptyBinarySearchNode[_]]
+
+      //https://en.wikibooks.org/wiki/Data_Structures/Trees#/media/File:Bstreedeleteleafexample.jpg
+      val tree = BinarySearchTree.fromColl[Int, List[Int]](List(50, 90, 100, 30, 20, 40))
+      val t2 = tree.remove(40)
+      t2.head.value should be(50)
+      t2.head.right.value should be(90)
+      t2.head.right.right.value should be(100)
+      t2.head.left.value should be(30)
+      t2.head.left.left.value should be(20)
+      t2.find(40) should be(false)
+
+      // https://en.wikibooks.org/wiki/Data_Structures/Trees#/media/File:Bstreedeleteonechildexample.jpg
+      val t3 = tree.remove(90)
+      t3.head.value should be(50)
+      t3.head.right.value should be(100)
+      t3.head.right.right shouldBe a[EmptyBinarySearchNode[_]]
+      t3.head.left.value should be(30)
+      t3.head.left.left.value should be(20)
+      t3.head.left.right.value should be(40)
+
+      // https://en.wikibooks.org/wiki/Data_Structures/Trees#/media/File:Bstreedeleterightchildexample.jpg
+      val t4 = t3.remove(30).insert(45)
+      t4.head.value should be(50)
+      t4.head.right.value should be(100)
+      t4.head.left.value should be(40)
+      t4.head.left.left.value should be(20)
+      t4.head.left.right.value should be(45)
+
     }
 
     "correctly return empty" in new TestContext {

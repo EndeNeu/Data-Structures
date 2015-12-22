@@ -1,6 +1,7 @@
 package com.ebusiello.fds.tree.binaries
 
 import com.ebusiello.fds.tree.generic.tree.{ OrderableTree, RemoveableTree, Tree }
+import play.api.libs.json.Writes
 
 import scala.language.higherKinds
 

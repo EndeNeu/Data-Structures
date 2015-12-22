@@ -5,22 +5,22 @@ import org.scalatest.{ Matchers, WordSpecLike }
 class BinaryNodeSpec extends WordSpecLike with Matchers {
 
   trait TestContext {
-    val emptyNode = new EmptyBinaryNode[Int]
-    val node = new BinaryNode[Int](0, new EmptyBinaryNode[Int], new EmptyBinaryNode[Int])
+    val emptyNode = new EmptyBinarySearchNode[Int]
+    val node = new BinarySearchNode[Int](0, new EmptyBinarySearchNode[Int], new EmptyBinarySearchNode[Int])
   }
 
   "EmptyBinaryNode" should {
     "correclty insert" in new TestContext {
       val n1 = emptyNode.insert(1)
       n1.isEmpty should be(false)
-      n1.left shouldBe a[EmptyBinaryNode[_]]
-      n1.right shouldBe a[EmptyBinaryNode[_]]
+      n1.left shouldBe a[EmptyBinarySearchNode[_]]
+      n1.right shouldBe a[EmptyBinarySearchNode[_]]
       n1.value should be(1)
 
     }
 
     "correctly map" in new TestContext {
-      emptyNode.map(identity) shouldBe a[EmptyBinaryNode[_]]
+      emptyNode.map(identity) shouldBe a[EmptyBinarySearchNode[_]]
 
     }
 
@@ -34,7 +34,7 @@ class BinaryNodeSpec extends WordSpecLike with Matchers {
     }
 
     "correctly remove" in new TestContext {
-      emptyNode.remove(1) shouldBe a[EmptyBinaryNode[_]]
+      emptyNode.remove(1) shouldBe a[EmptyBinarySearchNode[_]]
     }
 
     "correctly return the lenght" in new TestContext {
@@ -55,9 +55,9 @@ class BinaryNodeSpec extends WordSpecLike with Matchers {
       val n2 = node.insert(2)
       n2.value should be(0)
       n2.right.value should be(2)
-      n2.right.left shouldBe a[EmptyBinaryNode[_]]
-      n2.right.right shouldBe a[EmptyBinaryNode[_]]
-      n2.left shouldBe a[EmptyBinaryNode[_]]
+      n2.right.left shouldBe a[EmptyBinarySearchNode[_]]
+      n2.right.right shouldBe a[EmptyBinarySearchNode[_]]
+      n2.left shouldBe a[EmptyBinarySearchNode[_]]
       n2.insert(-1).left.value should be(-1)
     }
 
@@ -86,7 +86,7 @@ class BinaryNodeSpec extends WordSpecLike with Matchers {
     }
 
     "correctly remove" in new TestContext {
-      node.remove(0) shouldBe a[EmptyBinaryNode[_]]
+      node.remove(0) shouldBe a[EmptyBinarySearchNode[_]]
     }
 
     "correctly return the lenght" in new TestContext {
