@@ -27,7 +27,7 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
       nonEmptyTree.depth should be(1)
     }
 
-    "correctly map" in new TestContext {
+    "correctly map and rebalance" in new TestContext {
       val nonEmptyTree = emptyTree.insert(2).insert(1).insert(3)
       val mapped = nonEmptyTree.map(x => x * 2)
       mapped.find(2) should be(true)
@@ -37,19 +37,30 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
 
       val t1 = emptyTree.insert(1).insert(-1).insert(2).map(_ * -1)
 
-      t1.head.value should be(1)
+      t1.head.value should be(-1)
       t1.head.left.value should be(-2)
-      t1.head.left.right.value should be(-1)
+      t1.head.right.value should be(1)
+
+      // rebalance a totally unbalanced tree.
+      val n3 = BinarySearchTree.fromColl[Int, List[Int]](List(5, 4, 6, 2, 7)).map(_ * -1)
+      n3.head.value should be(-5)
+      n3.head.left.value should be(-6)
+      n3.head.left.left.value should be(-7)
+      n3.head.right.value should be(-4)
+      n3.head.right.right.value should be(-2)
+
+      // rebalance a node full of duplicates
+      val n4 = BinarySearchTree.fromColl[Int, List[Int]](List(5, 4, 6, 2, 7)).map(_ % 2)
+      n4.head.value should be(0)
+      n4.head.right.value should be(1)
+      n4.head.left shouldBe a[EmptyBinarySearchNode[_]]
     }
 
     "correctly remove an element" in new TestContext {
       val nonEmptyTree = emptyTree.insert(50).insert(100).insert(30).insert(20).insert(40).insert(35).insert(45).insert(37)
-      println(nonEmptyTree.stringify)
-      println(nonEmptyTree.remove(30).stringify)
 
       // https://en.wikibooks.org/wiki/Data_Structures/Trees#/media/File:Bstreedeletenotrightchildexample.jpg
       val n1 = nonEmptyTree.remove(30)
-      println(n1.stringify)
       n1.head.value should be(50)
       n1.head.right.value should be(100)
       n1.head.left.value should be(35)

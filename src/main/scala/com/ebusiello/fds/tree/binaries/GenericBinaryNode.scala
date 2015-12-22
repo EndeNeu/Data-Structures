@@ -10,7 +10,7 @@ import scala.language.higherKinds
  * @tparam T the type of the value held by this node.
  * @tparam S the type of node.
  */
-private[tree] trait GenericBinaryNode[T, S[_]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] {
+private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] {
 
   val left: S[T]
 
@@ -18,7 +18,36 @@ private[tree] trait GenericBinaryNode[T, S[_]] extends Node[T] with FindableNode
 
   def map[V](f: T => V): S[V]
 
-  def depth: Int
+  override def isEmpty: Boolean =
+    false
 
-  def length: Int
+  /**
+   * calculate depth of the tree
+   */
+  def depth: Int = {
+    val ld = left.depth
+    val rd = right.depth
+    if (ld > rd) 1 + ld
+    else 1 + rd
+  }
+
+  def length: Int =
+    1 + left.length + right.length
+
+  override def stringify: String = (left, right) match {
+    case (l: GenericBinaryNode[T, S], r: GenericBinaryNode[T, S]) =>
+      s"${l.stringify} ~ $value ~ ${r.stringify}"
+  }
+
+  /**
+   * Note that finding a value in a balanced com.ebusiello.fds.tree can lead to the full com.ebusiello.fds.tree traversal, that is
+   * if the value is found the function will keep traversing the com.ebusiello.fds.tree looking for the value until reaches
+   * an empty node.
+   */
+  def find(mValue: T)(implicit ord: Ordering[T]): Boolean =
+    if (value == mValue) true
+    else left.find(mValue) || right.find(mValue)
+
+  def foldTree[Z](z: Z)(f: (Z, T) => Z)(compose: (Z, Z) => Z): Z =
+    f(compose(z, compose(left.foldTree(z)(f)(compose), right.foldTree(z)(f)(compose))), value)
 }

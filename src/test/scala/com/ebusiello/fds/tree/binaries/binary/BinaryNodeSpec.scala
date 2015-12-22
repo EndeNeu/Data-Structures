@@ -61,7 +61,7 @@ class BinaryNodeSpec extends WordSpecLike with Matchers {
       n2.insert(-1).left.value should be(-1)
     }
 
-    "correctly map" in new TestContext {
+    "correctly map and rebalance" in new TestContext {
       node.map(_ + 1).value should be(1)
 
       val n1 = node.insert(2).insert(-1).map(_ + 2)
@@ -73,6 +73,21 @@ class BinaryNodeSpec extends WordSpecLike with Matchers {
       n2.value should be(0)
       n2.right.value should be(-1)
       n2.left.value should be(2)
+
+      /**
+       *         5    map _ * -1 ->  -5
+       *       /  \                 /  \
+       *      4   6               -4   -6
+       *     / \ / \              / \  / \
+       *    2  E E  7           -2  E E  -7
+       *
+       *    rebalance
+       *
+       *
+       *
+       *
+       */
+
     }
 
     "return non empty" in new TestContext {

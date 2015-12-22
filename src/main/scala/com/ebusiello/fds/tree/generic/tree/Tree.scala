@@ -1,7 +1,5 @@
 package com.ebusiello.fds.tree.generic.tree
 
-import play.api.libs.json.Writes
-
 trait Tree[T] {
 
   def isEmpty: Boolean
