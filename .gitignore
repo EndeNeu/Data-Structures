@@ -1,22 +1,28 @@
-### Scala template
+# Intellij
+.idea
+/.idea/
+.idea_modules
+.vagrant
+*.iml
+
+# Generated files
 *.class
 *.log
-
-# sbt specific
-.cache
-.history
-.lib/
-dist/*
+.idea_modules
+.vagrant
+*.class
+*.log
+/project/plugins/project
 target/
 lib_managed/
 src_managed/
-project/boot/
-project/plugins/project/
+test-output/
+/snapshots/
 
-# Scala-IDE specific
-.scala_dependencies
-.worksheet
-
-.idea
-
-# Created by .ignore support plugin (hsz.mobi)
+# Misc.
+.DS_Store
+*.swp
+*.ipr
+*.iws
+version.txt
+*.dylib
