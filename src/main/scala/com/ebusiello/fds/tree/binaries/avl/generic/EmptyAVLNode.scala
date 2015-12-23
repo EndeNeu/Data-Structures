@@ -31,8 +31,6 @@ class EmptyAVLNode[T] extends AVLNode[T](null.asInstanceOf[T], null, null) {
 
   override protected def rotateNode(): AVLNode[T] = this
 
-  override def rebalance()(implicit ord: Ordering[T]): AVLNode[T] = this
-
   override def leftRelativeDepth: Int = 0
 
   override def rightRelativeDepth: Int = 0

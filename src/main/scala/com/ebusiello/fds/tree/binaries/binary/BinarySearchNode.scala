@@ -1,9 +1,9 @@
 package com.ebusiello.fds.tree.binaries.binary
 
 import com.ebusiello.fds.tree.binaries.GenericBinaryNode
-import com.ebusiello.fds.tree.generic.node.{ OrderableNode, RotableNode }
+import com.ebusiello.fds.tree.generic.node.{ BalanceableNode, OrderableNode, RotableNode }
 
-private[binaries] class BinarySearchNode[T](val value: T, val left: BinarySearchNode[T], val right: BinarySearchNode[T]) extends GenericBinaryNode[T, BinarySearchNode] with OrderableNode[T, BinarySearchNode] with RotableNode[T, BinarySearchNode] {
+private[binaries] class BinarySearchNode[T](val value: T, val left: BinarySearchNode[T], val right: BinarySearchNode[T]) extends GenericBinaryNode[T, BinarySearchNode] with OrderableNode[T, BinarySearchNode] with RotableNode[T, BinarySearchNode] with BalanceableNode[T, BinarySearchNode] {
 
   /**
    * Insert can happen between leafs, ordering is preserved

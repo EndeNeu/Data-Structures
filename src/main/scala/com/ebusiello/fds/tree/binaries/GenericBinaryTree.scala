@@ -1,6 +1,6 @@
 package com.ebusiello.fds.tree.binaries
 
-import com.ebusiello.fds.tree.generic.tree.{ BalanceableTree, OrderableTree, RemoveableTree, Tree }
+import com.ebusiello.fds.tree.generic.tree.{ OrderableTree, RemoveableTree, Tree }
 
 import scala.language.higherKinds
 
@@ -8,7 +8,7 @@ import scala.language.higherKinds
  * Generic implementation for a binary com.ebusiello.fds.tree, basically a wrapper around the root element (head),
  * defer operations to the head element.
  */
-private[tree] trait GenericBinaryTree[T, S[_], N[T] <: GenericBinaryNode[T, N]] extends Tree[T] with OrderableTree[T, S] with RemoveableTree[T, S] with BalanceableTree[T, S] {
+private[tree] trait GenericBinaryTree[T, S[_], N[T] <: GenericBinaryNode[T, N]] extends Tree[T] with OrderableTree[T, S] with RemoveableTree[T, S] {
 
   val head: N[T]
 

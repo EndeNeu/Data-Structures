@@ -1,9 +1,9 @@
 package com.ebusiello.fds.tree.binaries.avl.generic
 
 import com.ebusiello.fds.tree.binaries.GenericBinaryNode
-import com.ebusiello.fds.tree.generic.node.{ BalanceableNode, RotableNode, OrderableNode }
+import com.ebusiello.fds.tree.generic.node.{ OrderableNode, RotableNode }
 
-class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] with BalanceableNode[T, AVLNode] {
+class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] {
 
   override def insert(newValue: T)(implicit ord: Ordering[T]): AVLNode[T] = this match {
     case AVLNode(v, _, _) if v == newValue =>
@@ -53,7 +53,6 @@ class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) exte
   override def map[V](f: (T) => V): AVLNode[V] =
     new AVLNode[V](f(value), left.map(f), right.map(f))
 
-  override def rebalance()(implicit ord: Ordering[T]): AVLNode[T] = ???
 }
 
 object AVLNode {
