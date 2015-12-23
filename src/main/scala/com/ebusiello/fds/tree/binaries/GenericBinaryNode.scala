@@ -1,6 +1,6 @@
 package com.ebusiello.fds.tree.binaries
 
-import com.ebusiello.fds.tree.generic.node.{ RemoveableNode, FindableNode, Node, StringifiableNode }
+import com.ebusiello.fds.tree.generic.node._
 
 import scala.language.higherKinds
 
@@ -10,7 +10,7 @@ import scala.language.higherKinds
  * @tparam T the type of the value held by this node.
  * @tparam S the type of node.
  */
-private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] {
+private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] with BalanceableNode[T, S] {
 
   val left: S[T]
 
@@ -20,6 +20,12 @@ private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extend
 
   override def isEmpty: Boolean =
     false
+
+  override def leftRelativeDepth: Int =
+    (if (left.nonEmpty && right.nonEmpty) 1 else 0) + left.leftRelativeDepth
+
+  override def rightRelativeDepth: Int =
+    (if (left.nonEmpty && right.nonEmpty) 1 else 0) + right.rightRelativeDepth
 
   /**
    * calculate depth of the tree

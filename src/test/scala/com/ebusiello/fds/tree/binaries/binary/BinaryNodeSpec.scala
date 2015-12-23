@@ -115,6 +115,19 @@ class BinaryNodeSpec extends WordSpecLike with Matchers {
     "correctly fold" in new TestContext {
       node.foldTree(0)((acc, curr) => acc + curr)((a1, a2) => a1 + a2) should be(0)
     }
+
+    "correctly calculate the left and right depth" in new TestContext {
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 9, 11)).head.leftRelativeDepth should be(1)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 9, 11)).head.rightRelativeDepth should be(1)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 9, 11)).head.right.leftRelativeDepth should be(0)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 9, 11)).head.right.rightRelativeDepth should be(0)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 9, 11)).head.left.rightRelativeDepth should be(0)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 9, 11)).head.left.leftRelativeDepth should be(0)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 9, 11, 8)).head.leftRelativeDepth should be(1)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 8, 11, 7, 9)).head.leftRelativeDepth should be(2)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 8, 12, 11)).head.rightRelativeDepth should be(1)
+      BinarySearchTree.fromColl[Int, List[Int]](List(10, 8, 12, 11, 13)).head.rightRelativeDepth should be(2)
+    }
   }
 
 }
