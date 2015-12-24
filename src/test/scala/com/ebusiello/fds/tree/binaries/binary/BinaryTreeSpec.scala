@@ -8,7 +8,7 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
     val emptyTree = BinarySearchTree.emptyTree[Int]
   }
 
-  "Binary com.ebusiello.fds.tree" should {
+  "Binary tree" should {
     "correctly insert" in new TestContext {
       val nonEmptyTree = emptyTree.insert(1).insert(2).insert(3)
       nonEmptyTree.find(1) should be(true)
@@ -17,6 +17,13 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
       nonEmptyTree.find(4) should be(false)
       nonEmptyTree.length should be(3)
       nonEmptyTree.depth should be(3)
+      val nonEmptyTree2 = emptyTree.insert(4).insert(3).insert(2)
+      nonEmptyTree2.find(4) should be(true)
+      nonEmptyTree2.find(3) should be(true)
+      nonEmptyTree2.find(2) should be(true)
+      nonEmptyTree2.find(1) should be(false)
+      nonEmptyTree2.length should be(3)
+      nonEmptyTree2.depth should be(3)
 
       emptyTree.find(0) should be(false)
     }
@@ -28,6 +35,7 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
     }
 
     "correctly map and rebalance" in new TestContext {
+      emptyTree.map(_ + 1).head shouldBe a[EmptyBinarySearchNode[_]]
       val nonEmptyTree = emptyTree.insert(2).insert(1).insert(3)
       val mapped = nonEmptyTree.map(x => x * 2)
       mapped.find(2) should be(true)
@@ -97,7 +105,6 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
       t4.head.left.value should be(40)
       t4.head.left.left.value should be(20)
       t4.head.left.right.value should be(45)
-
     }
 
     "correctly return empty" in new TestContext {

@@ -23,13 +23,11 @@ private[binary] final class EmptyBinarySearchNode[T] extends BinarySearchNode[T]
 
   override def depth: Int = 0
 
-  override def leftRelativeDepth: Int = 0
-
-  override def rightRelativeDepth: Int = 0
+  override def relativeDepth: Int = 0
 
   override protected def rotateNode(): BinarySearchNode[T] = this
 
-  override def rebalance()(implicit ord: Ordering[T]): BinarySearchNode[T] =
+  override def resort()(implicit ord: Ordering[T]): BinarySearchNode[T] =
     this
 
 }

@@ -3,7 +3,7 @@ package com.ebusiello.fds.tree.binaries.binary
 import com.ebusiello.fds.tree.binaries.GenericBinaryNode
 import com.ebusiello.fds.tree.generic.node.{ BalanceableNode, OrderableNode, RotableNode }
 
-private[binaries] class BinarySearchNode[T](val value: T, val left: BinarySearchNode[T], val right: BinarySearchNode[T]) extends GenericBinaryNode[T, BinarySearchNode] with OrderableNode[T, BinarySearchNode] with RotableNode[T, BinarySearchNode] with BalanceableNode[T, BinarySearchNode] {
+private[binary] class BinarySearchNode[T](val value: T, val left: BinarySearchNode[T], val right: BinarySearchNode[T]) extends GenericBinaryNode[T, BinarySearchNode] with OrderableNode[T, BinarySearchNode] with RotableNode[T, BinarySearchNode] with BalanceableNode[T, BinarySearchNode] {
 
   /**
    * Insert can happen between leafs, ordering is preserved
@@ -64,20 +64,20 @@ private[binaries] class BinarySearchNode[T](val value: T, val left: BinarySearch
    * Balance the node in its context, the node is rebalanced recursively
    * until it's balanced with its left and right leaves.
    */
-  override def rebalance()(implicit ord: Ordering[T]): BinarySearchNode[T] = {
+  override def resort()(implicit ord: Ordering[T]): BinarySearchNode[T] = {
     // avoid duplication on both left and right.
     if (left.nonEmpty && left.value == value)
-      new BinarySearchNode[T](value, left.remove(value), right).rebalance()
+      new BinarySearchNode[T](value, left.remove(value), right).resort()
     else if (right.nonEmpty && right.value == value)
-      new BinarySearchNode[T](value, left, right.remove(value)).rebalance()
+      new BinarySearchNode[T](value, left, right.remove(value)).resort()
     // balance the left part
     else if (left.nonEmpty && ord.gt(left.value, value))
-      new BinarySearchNode[T](left.value, new BinarySearchNode[T](value, left.left, left.right), right).rebalance()
+      new BinarySearchNode[T](left.value, new BinarySearchNode[T](value, left.left, left.right), right).resort()
     // balance the right part
     else if (right.nonEmpty && ord.gt(value, right.value))
-      new BinarySearchNode[T](right.value, left, new BinarySearchNode[T](value, right.left, right.right)).rebalance()
+      new BinarySearchNode[T](right.value, left, new BinarySearchNode[T](value, right.left, right.right)).resort()
     // node already balanced
     else
-      new BinarySearchNode[T](value, left.rebalance(), right.rebalance())
+      new BinarySearchNode[T](value, left.resort(), right.resort())
   }
 }

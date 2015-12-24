@@ -10,7 +10,7 @@ import scala.language.higherKinds
  * @tparam T the type of the value held by this node.
  * @tparam S the type of node.
  */
-private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] {
+private[binaries] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] {
 
   val left: S[T]
 
@@ -21,11 +21,13 @@ private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extend
   override def isEmpty: Boolean =
     false
 
-  override def leftRelativeDepth: Int =
-    (if (left.nonEmpty && right.nonEmpty) 1 else 0) + left.leftRelativeDepth
-
-  override def rightRelativeDepth: Int =
-    (if (left.nonEmpty && right.nonEmpty) 1 else 0) + right.rightRelativeDepth
+  override def relativeDepth: Int = {
+    if (left.nonEmpty && right.isEmpty) 1 + left.relativeDepth
+    else if (left.isEmpty && right.nonEmpty) 1 + right.relativeDepth
+    else if (left.nonEmpty && right.nonEmpty) 1 + Math.max(left.relativeDepth, right.relativeDepth)
+    // if both leaves are empty.
+    else 1
+  }
 
   /**
    * calculate depth of the tree
@@ -42,7 +44,7 @@ private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extend
 
   override def stringify: String = (left, right) match {
     case (l: GenericBinaryNode[T, S], r: GenericBinaryNode[T, S]) =>
-      s"${l.stringify} ~ $value ~ ${r.stringify}"
+      s"{:}${l.stringify} ~ $value ~ ${r.stringify}"
   }
 
   /**
