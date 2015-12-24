@@ -2,7 +2,7 @@ package com.ebusiello.fds.stacks
 
 import scala.language.higherKinds
 
-trait GenericStack[T, S[_]] {
+private[stacks] trait GenericStack[T, S[_]] {
 
   def push(mValue: T): S[T]
 

@@ -1,9 +1,9 @@
-package com.ebusiello.fds.tree.binaries.avl.generic
+package com.ebusiello.fds.tree.binaries.avl
 
 import com.ebusiello.fds.tree.binaries.GenericBinaryTree
 import com.ebusiello.fds.tree.generic.tree.BalanceableTree
 
-class AVLTree[T](val head: AVLNode[T]) extends GenericBinaryTree[T, AVLTree, AVLNode] with BalanceableTree[T, AVLTree] {
+final class AVLTree[T](val head: AVLNode[T]) extends GenericBinaryTree[T, AVLTree, AVLNode] with BalanceableTree[T, AVLTree] {
 
   override def insert(value: T)(implicit ord: Ordering[T]): AVLTree[T] =
     if (isEmpty) new AVLTree[T](new AVLNode[T](value, new EmptyAVLNode[T], new EmptyAVLNode[T]))

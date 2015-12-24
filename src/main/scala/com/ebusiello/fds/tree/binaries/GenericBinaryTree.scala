@@ -8,7 +8,7 @@ import scala.language.higherKinds
  * Generic implementation for a binary com.ebusiello.fds.tree, basically a wrapper around the root element (head),
  * defer operations to the head element.
  */
-private[tree] trait GenericBinaryTree[T, S[_], N[T] <: GenericBinaryNode[T, N]] extends Tree[T] with OrderableTree[T, S] with RemoveableTree[T, S] {
+private[binaries] trait GenericBinaryTree[T, S[_], N[T] <: GenericBinaryNode[T, N]] extends Tree[T] with OrderableTree[T, S] with RemoveableTree[T, S] {
 
   val head: N[T]
 

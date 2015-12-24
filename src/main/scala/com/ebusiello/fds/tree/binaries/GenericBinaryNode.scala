@@ -10,7 +10,7 @@ import scala.language.higherKinds
  * @tparam T the type of the value held by this node.
  * @tparam S the type of node.
  */
-private[tree] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] {
+private[binaries] trait GenericBinaryNode[T, S[T] <: GenericBinaryNode[T, S]] extends Node[T] with FindableNode[T] with StringifiableNode with RemoveableNode[T, S] {
 
   val left: S[T]
 

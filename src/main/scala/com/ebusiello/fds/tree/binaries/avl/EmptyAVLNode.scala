@@ -1,6 +1,6 @@
-package com.ebusiello.fds.tree.binaries.avl.generic
+package com.ebusiello.fds.tree.binaries.avl
 
-class EmptyAVLNode[T] extends AVLNode[T](null.asInstanceOf[T], null, null) {
+private[avl] final class EmptyAVLNode[T] extends AVLNode[T](null.asInstanceOf[T], null, null) {
 
   override def map[V](f: (T) => V): EmptyAVLNode[V] =
     new EmptyAVLNode[V]

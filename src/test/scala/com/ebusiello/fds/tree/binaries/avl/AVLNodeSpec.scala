@@ -1,6 +1,5 @@
 package com.ebusiello.fds.tree.binaries.avl
 
-import com.ebusiello.fds.tree.binaries.avl.generic.{ AVLNode, EmptyAVLNode }
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class AVLNodeSpec extends WordSpecLike with Matchers {

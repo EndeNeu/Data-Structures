@@ -1,9 +1,9 @@
-package com.ebusiello.fds.tree.binaries.avl.generic
+package com.ebusiello.fds.tree.binaries.avl
 
 import com.ebusiello.fds.tree.binaries.GenericBinaryNode
 import com.ebusiello.fds.tree.generic.node.{ RetractableNode, OrderableNode, RotableNode, BalanceableNode }
 
-class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] with RetractableNode[T, AVLNode] with BalanceableNode[T, AVLNode] {
+private[avl] class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] with RetractableNode[T, AVLNode] with BalanceableNode[T, AVLNode] {
 
   override def insert(newValue: T)(implicit ord: Ordering[T]): AVLNode[T] = {
     if (newValue == value) this // guard against duplicates.

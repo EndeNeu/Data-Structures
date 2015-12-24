@@ -3,7 +3,7 @@ package com.ebusiello.fds.stacks.stack
 /**
  * Represents the end of a linked list.
  */
-final class EmptyStackNode[T] extends StackNode[T](null.asInstanceOf[T], null) {
+private[stack] final class EmptyStackNode[T] extends StackNode[T](null.asInstanceOf[T], null) {
 
   /**
    * We return this instead of creating an exception to avoid problems when popping a stack with one element.
