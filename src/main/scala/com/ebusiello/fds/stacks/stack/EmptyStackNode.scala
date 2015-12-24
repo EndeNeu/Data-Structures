@@ -1,7 +1,5 @@
 package com.ebusiello.fds.stacks.stack
 
-import com.ebusiello.fds.stacks.StackException
-
 /**
  * Represents the end of a linked list.
  */
@@ -21,8 +19,5 @@ final class EmptyStackNode[T] extends StackNode[T](null.asInstanceOf[T], null) {
 
   override def isEmpty: Boolean =
     true
-
-  override def pop: StackNode[T] =
-    throw new StackException("Pop on empty queue.")
 
 }

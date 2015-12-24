@@ -8,5 +8,4 @@ trait GenericStackNode[T, S[_]] {
 
   def isEmpty: Boolean
 
-  def pop: S[T]
 }

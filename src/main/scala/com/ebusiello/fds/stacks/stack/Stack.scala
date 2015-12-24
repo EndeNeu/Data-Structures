@@ -25,7 +25,7 @@ final class Stack[T](head: StackNode[T] = new EmptyStackNode[T]) extends Generic
     new Stack[T](new StackNode[T](mValue, head))
 
   override def top: T = head match {
-    case e: EmptyStackNode[T] => throw new StackException("Top on empty stack")
+    case e: EmptyStackNode[T] => throw new StackException("Top on empty stack.")
     case n: StackNode[T] => n.value
   }
 
@@ -35,8 +35,10 @@ final class Stack[T](head: StackNode[T] = new EmptyStackNode[T]) extends Generic
   def nonEmpty: Boolean =
     !isEmpty
 
-  override def pop: Stack[T] =
-    new Stack[T](head.previous)
+  override def pop: Stack[T] = head match {
+    case empty: EmptyStackNode[T] => throw new StackException("Pop on empty stack.")
+    case node: StackNode[T] => new Stack[T](node.previous)
+  }
 
 }
 

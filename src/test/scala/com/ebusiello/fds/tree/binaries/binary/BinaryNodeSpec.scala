@@ -48,6 +48,10 @@ class BinaryNodeSpec extends WordSpecLike with Matchers {
     "correctly fold" in new TestContext {
       emptyNode.foldTree(0)((acc, curr) => acc + curr)((a1, a2) => a1 + a2) should be(0)
     }
+
+    "correctly stringify" in new TestContext {
+      emptyNode.stringify should be("E")
+    }
   }
 
   "BinaryNode" should {
