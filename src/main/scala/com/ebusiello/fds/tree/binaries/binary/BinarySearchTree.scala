@@ -3,6 +3,9 @@ package com.ebusiello.fds.tree.binaries.binary
 import com.ebusiello.fds.tree.binaries.GenericBinaryTree
 import com.ebusiello.fds.tree.generic.node.BalanceableNode
 
+/**
+ * https://en.wikipedia.org/wiki/Binary_search_tree
+ */
 final class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableNode[T, BinarySearchTree] {
 
   override def insert(value: T)(implicit ord: Ordering[T]): BinarySearchTree[T] =
@@ -43,7 +46,7 @@ final class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBi
     def loop(previousTree: BinarySearchTree[T]): BinarySearchTree[T] = {
       // first rebalance of the tree
       val rebalanced = new BinarySearchTree[T](previousTree.head.resort())
-      // folding keeps the elemnt order, if the tree hasn't rotated the order will be the same
+      // folding keeps the element order, if the tree hasn't rotated the order will be the same
       // and we need to break the loop
       if (rebalanced.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2) == previousTree.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2))
         rebalanced
