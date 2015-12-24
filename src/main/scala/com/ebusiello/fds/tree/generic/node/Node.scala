@@ -10,7 +10,6 @@ trait Node[T] {
 
   def foldTree[P](z: P)(f: (P, T) => P)(compose: (P, P) => P): P
 
-  def leftRelativeDepth: Int
+  def relativeDepth: Int
 
-  def rightRelativeDepth: Int
 }

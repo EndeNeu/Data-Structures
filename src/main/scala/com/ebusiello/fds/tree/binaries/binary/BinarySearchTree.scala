@@ -1,9 +1,9 @@
 package com.ebusiello.fds.tree.binaries.binary
 
 import com.ebusiello.fds.tree.binaries.GenericBinaryTree
-import com.ebusiello.fds.tree.generic.tree.BalanceableTree
+import com.ebusiello.fds.tree.generic.node.BalanceableNode
 
-class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableTree[T, BinarySearchTree] {
+class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableNode[T, BinarySearchTree] {
 
   override def insert(value: T)(implicit ord: Ordering[T]): BinarySearchTree[T] =
     if (isEmpty) new BinarySearchTree[T](new BinarySearchNode[T](value, new EmptyBinarySearchNode[T], new EmptyBinarySearchNode[T]))
@@ -29,7 +29,7 @@ class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBinaryTr
    */
   override def map[V](f: (T) => V)(implicit ord: Ordering[T], ord2: Ordering[V]): BinarySearchTree[V] =
     if (isEmpty) new BinarySearchTree[V](new EmptyBinarySearchNode[V])
-    else new BinarySearchTree[V](head.map(f)).rebalance()(ord2)
+    else new BinarySearchTree[V](head.map(f)).resort()(ord2)
 
   /**
    * Rebalance a tree, usually after a map, would be nice to handle at node level but currently
@@ -39,10 +39,10 @@ class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBinaryTr
    * the head every time the rotation reach the end of the tree, if the tree isn't changing we
    * are done with the rebalancing.
    */
-  override def rebalance()(implicit ord: Ordering[T]): BinarySearchTree[T] = {
+  override def resort()(implicit ord: Ordering[T]): BinarySearchTree[T] = {
     def loop(previousTree: BinarySearchTree[T]): BinarySearchTree[T] = {
       // first rebalance of the tree
-      val rebalanced = new BinarySearchTree[T](previousTree.head.rebalance())
+      val rebalanced = new BinarySearchTree[T](previousTree.head.resort())
       // folding keeps the elemnt order, if the tree hasn't rotated the order will be the same
       // and we need to break the loop
       if (rebalanced.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2) == previousTree.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2))
