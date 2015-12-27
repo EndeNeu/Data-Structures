@@ -32,10 +32,6 @@ class QueueSpec extends WordSpecLike with Matchers {
     }
 
     "dequeue" in new TestContext {
-      intercept[QueueException] {
-        emptyQueue.dequeue
-      }
-
       nonEmpty.enqueue(10).dequeue.top should be(2)
       nonEmpty.dequeue.dequeue.dequeue.dequeue.top should be(8)
       nonEmpty.dequeue.dequeue.dequeue.top should be(7)

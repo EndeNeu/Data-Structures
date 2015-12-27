@@ -28,11 +28,9 @@ object Build extends Build {
 
     def baseSettings(projectName: String): Project =
       project
-        .configs(IntegrationTest)
-        // main
         .settings(
         name := projectName,
-        organization := "io.relayr",
+        organization := "com.ebusiello",
         version := projectVersion,
         scalacOptions := Seq(
           "-deprecation",
@@ -43,7 +41,7 @@ object Build extends Build {
           "-target:jvm-1.8",
           "-unchecked",
           "-Xcheckinit",
-          // TODO turn back on "-Xfatal-warnings",
+          "-Xfatal-warnings",
           "-Xfuture",
           "-Xlint",
           "-Xverify",
@@ -63,18 +61,12 @@ object Build extends Build {
         testOptions in ThisBuild <+= (target in Test) map {
           t => Tests.Argument("-o", "-u", t + "/test-reports")
         },
-        // javaOptions += "-Dlog4j.debug",
-        //  javaOptions += "-Dlog4j.configuration=file:/etc/relayr/backend/log4j.xml",
         fork in run := true,
         parallelExecution in Global := parExec
       )
-        .settings(aggregate in Compile := false) // reduces the compile time by a half
-        .settings(aggregate in update := false) // reduces the compile time by a half
-        // .settings(testOptions in Test in Global += Tests.Argument(TestFrameworks.ScalaTest, "-oFD", "-eFD"))
-        .settings(Defaults.itSettings: _*)
         .settings(scalariformSettings: _*)
         .settings(
-          coverageMinimum := 30,
+          coverageMinimum := 90,
           coverageFailOnMinimum := true
         )
   }

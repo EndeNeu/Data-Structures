@@ -25,11 +25,6 @@ class QueueNodeSpec extends Matchers with WordSpecLike {
       emptyNode.enqueue(1).isEmpty should be(false)
     }
 
-    "throw when getting the previous" in new TestContext {
-      intercept[QueueException] {
-        emptyNode.previous
-      }
-    }
   }
 
   "a non empty node" should {
@@ -48,8 +43,8 @@ class QueueNodeSpec extends Matchers with WordSpecLike {
     }
 
     "throw when getting the previous" in new TestContext {
-      node.previous shouldBe a[EmptyQueueNode[_]]
-      node.enqueue(0).previous.value should be(0)
+      node.pointer shouldBe a[EmptyQueueNode[_]]
+      node.enqueue(0).pointer.value should be(0)
     }
   }
 

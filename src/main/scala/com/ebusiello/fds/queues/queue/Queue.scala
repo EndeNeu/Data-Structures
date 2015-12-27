@@ -26,7 +26,7 @@ final class Queue[T](val head: QueueNode[T] = new EmptyQueueNode[T]) extends Gen
    * Removes the item from the front of the queue.
    */
   override def dequeue: Queue[T] =
-    new Queue[T](head.previous)
+    new Queue[T](head.pointer)
 
   /**
    * Returns the item at the front of the queue.

@@ -2,15 +2,12 @@ package com.ebusiello.fds.queues
 
 import scala.language.higherKinds
 
-private[queues] trait GenericQueueNode[T, S[_]] {
+private[queues] trait GenericQueueNode[T, S[T] <: GenericQueueNode[T, S]] {
 
   /**
    * Pointer to the previous node.
    */
   val pointer: S[T]
-
-  def previous: S[T] =
-    pointer
 
   /**
    * Adds an item onto the end of the queue.
@@ -19,6 +16,7 @@ private[queues] trait GenericQueueNode[T, S[_]] {
 
   def isEmpty: Boolean
 
-  def size(): Int
+  def size(): Int =
+    1 + pointer.size()
 
 }

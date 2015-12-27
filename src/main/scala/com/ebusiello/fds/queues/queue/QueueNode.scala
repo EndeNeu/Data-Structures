@@ -8,11 +8,9 @@ import com.ebusiello.fds.queues.GenericQueueNode
 class QueueNode[T](val value: T, val pointer: QueueNode[T]) extends GenericQueueNode[T, QueueNode] {
 
   override def enqueue(mValue: T): QueueNode[T] =
-    new QueueNode[T](value, previous.enqueue(mValue))
+    new QueueNode[T](value, pointer.enqueue(mValue))
 
   override def isEmpty: Boolean =
     false
 
-  override def size(): Int =
-    1 + pointer.size()
 }
