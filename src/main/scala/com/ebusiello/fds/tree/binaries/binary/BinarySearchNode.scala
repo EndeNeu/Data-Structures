@@ -9,11 +9,11 @@ private[binary] class BinarySearchNode[T](val value: T, val left: BinarySearchNo
    * Insert can happen between leafs, ordering is preserved
    *
    *
-   * 1  insert(4)    1
-   * \             / \
-   * 2 5            2  5
-   * /           /\  /\
-   * 3           E E 3 4
+   *   1  insert(4)    1
+   *  / \             / \
+   * 2  5            2  5
+   *   /            /\  /\
+   *  3            E E 3 4
    */
   override def insert(newValue: T)(implicit ord: Ordering[T]): BinarySearchNode[T] =
     if (newValue == value) this // guard against duplicates.

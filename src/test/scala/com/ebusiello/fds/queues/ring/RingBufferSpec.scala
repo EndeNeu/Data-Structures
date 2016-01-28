@@ -1,6 +1,5 @@
 package com.ebusiello.fds.queues.ring
 
-import com.ebusiello.fds.queues.ring.RingBuffer
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class RingBufferSpec extends WordSpecLike with Matchers {

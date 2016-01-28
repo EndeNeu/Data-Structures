@@ -19,7 +19,7 @@ object Build extends Build {
 
   val PFDS = (project in file("."))
     .baseSettings("PFDS")
-  .settings(libraryDependencies ++= PFDSDependencies)
+    .settings(libraryDependencies ++= PFDSDependencies)
 
   //.settings(libraryDependencies)
 

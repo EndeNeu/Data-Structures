@@ -10,15 +10,15 @@ import com.ebusiello.fds.queues.{ GenericQueue, QueueException }
 final class RingBuffer[T](size: Int, val head: RingBufferNode[T] = new EmptyRingBufferNode[T]) extends GenericQueue[T, RingBuffer, RingBufferNode] {
 
   /**
-    * Disadvantages of using a linked list, to know if the ring has reached
-    * its full size we need to traverse the list and get the length, plus the
-    * last node in the list doesn't have a pointer to the first node,
-    * it simply points to an empty node so the check on the ring size is implemented
-    * here.
-    *
-    * TODO insert is O(N) because we need the length of the list.
-    * TODO maybe avoid using a linked list?
-    */
+   * Disadvantages of using a linked list, to know if the ring has reached
+   * its full size we need to traverse the list and get the length, plus the
+   * last node in the list doesn't have a pointer to the first node,
+   * it simply points to an empty node so the check on the ring size is implemented
+   * here.
+   *
+   * TODO insert is O(N) because we need the length of the list.
+   * TODO maybe avoid using a linked list?
+   */
   override def enqueue(value: T): RingBuffer[T] =
     if (head.length() == size) new RingBuffer[T](size, head.pointer.enqueue(value))
     else new RingBuffer[T](size, head.enqueue(value))

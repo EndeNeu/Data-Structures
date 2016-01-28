@@ -1,7 +1,7 @@
 package com.ebusiello.fds.queues.deque
 
+import com.ebusiello.fds.queues.GenericQueue
 import com.ebusiello.fds.queues.queue.DoubleEndedQueue
-import com.ebusiello.fds.queues.{ GenericQueue, QueueException }
 
 /**
  * Deque (Double-ended queue) is a particular type of queue which allows operations on both tail and head of the queue.
