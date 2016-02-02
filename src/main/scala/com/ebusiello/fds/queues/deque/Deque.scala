@@ -19,7 +19,6 @@ final class Deque[T](val head: DequeNode[T], val root: DequeNode[T]) extends Gen
   /**
    * Add an element to the end of the queue
    */
-  /*
   override def append(mValue: T): Deque[T] =
     new Deque[T](head.append(mValue))
 
