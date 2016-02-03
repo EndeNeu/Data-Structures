@@ -16,13 +16,4 @@ final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T
   override def length(): Int =
     0
 
-  /**
-   * Removes the first entered element.
-   */
-  override def pop(): RingBufferNode[T] = ???
-
-  /**
-   * returns the first entered element
-   */
-  override def top(): T = ???
 }

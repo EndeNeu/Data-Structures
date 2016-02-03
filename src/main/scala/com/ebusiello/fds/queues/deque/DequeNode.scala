@@ -2,7 +2,7 @@ package com.ebusiello.fds.queues.deque
 
 import com.ebusiello.fds.queues.GenericQueueNode
 
-class DequeNode[T](val value: T, val pointer: DequeNode[T]) extends GenericQueueNode[T, DequeNode] {
+class DequeNode[T](val value: T, val next: DequeNode[T]) extends GenericQueueNode[T, DequeNode] {
 
   override def isEmpty: Boolean =
     false
@@ -11,7 +11,7 @@ class DequeNode[T](val value: T, val pointer: DequeNode[T]) extends GenericQueue
    * Adds an item onto the end of the queue.
    */
   def append(mValue: T): DequeNode[T] =
-    new DequeNode[T](value, pointer.append(mValue))
+    new DequeNode[T](value, next.append(mValue))
 
   /*def last: T = previous match {
     case e: EmptyDequeNode[T] => value
@@ -23,25 +23,11 @@ class DequeNode[T](val value: T, val pointer: DequeNode[T]) extends GenericQueue
    * if the next node pointer has an empty node, this is the second to last node, return this with a pointer to an empty node
    * otherwise propagate the operation to the next node.
    */
-  def popLast: DequeNode[T] = pointer match {
+  def popLast: DequeNode[T] = next match {
     case e: EmptyDequeNode[T] => e
-    case n: DequeNode[T] => n.pointer match {
+    case n: DequeNode[T] => n.next match {
       case e: EmptyDequeNode[T] => new DequeNode[T](value, new EmptyDequeNode[T])
       case n: DequeNode[T] => new DequeNode[T](value, n.popLast)
     }
   }
-
-  /**
-   * Removes the first entered element.
-   */
-  override def pop(): DequeNode[T] =
-    if(pointer.isEmpty) new EmptyDequeNode[T]
-    else new DequeNode[T](value, pointer.pop())
-
-  /**
-   * returns the first entered element
-   */
-  override def top(): T =
-    if(pointer.isEmpty) value
-    else pointer.top()
 }
