@@ -13,5 +13,5 @@ Just a collection of self-implemented purely functional data structures.
 ### Stacks and Queues
 - [x] **[Stack](https://en.wikipedia.org/wiki/Stack_%28abstract_data_type%29)**
 - [x] **[Queue](https://en.wikipedia.org/wiki/Queue_%28abstract_data_type%29)**
-- [ ] **[RingBuffer](https://en.wikipedia.org/wiki/Circular_buffer)**
+- [x] **[RingBuffer](https://en.wikipedia.org/wiki/Circular_buffer)**
 - [ ] **[Dequeue](https://en.wikipedia.org/wiki/Double-ended_queue)**

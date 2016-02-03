@@ -1,5 +1,6 @@
 package com.ebusiello.fds.queues.ring
 
+import com.ebusiello.fds.queues.QueueException
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class RingBufferSpec extends WordSpecLike with Matchers {
@@ -27,6 +28,12 @@ class RingBufferSpec extends WordSpecLike with Matchers {
     }
     "last" in new TestContext {
       nonEmpty.last should be(1)
+    }
+
+    "throw when empty on top" in new TestContext {
+      intercept[QueueException] {
+        empty.top
+      }
     }
 
   }

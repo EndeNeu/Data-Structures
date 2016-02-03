@@ -16,4 +16,7 @@ final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T
   override def length(): Int =
     0
 
+  override def stringify: String =
+    "E"
 }
+

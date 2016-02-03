@@ -46,6 +46,11 @@ class QueueNodeSpec extends Matchers with WordSpecLike {
       node.next shouldBe a[EmptyQueueNode[_]]
       node.append(0).next.value should be(0)
     }
+
+    "correctly stringify" in new TestContext {
+      emptyNode.stringify should be("E")
+      node.stringify should be("0, E")
+    }
   }
 
 }
