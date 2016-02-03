@@ -4,7 +4,7 @@ import com.ebusiello.fds.queues.QueueException
 
 final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T], null) {
 
-  override def enqueue(mValue: T): RingBufferNode[T] =
+  override def append(mValue: T): RingBufferNode[T] =
     new RingBufferNode[T](mValue, new EmptyRingBufferNode[T])
 
   override def isEmpty: Boolean =
@@ -15,4 +15,14 @@ final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T
 
   override def length(): Int =
     0
+
+  /**
+   * Removes the first entered element.
+   */
+  override def pop(): RingBufferNode[T] = ???
+
+  /**
+   * returns the first entered element
+   */
+  override def top(): T = ???
 }

@@ -34,6 +34,7 @@ object Build extends Build {
         version := projectVersion,
         scalacOptions := Seq(
           "-deprecation",
+          "-language:higherKinds",
           "-explaintypes",
           "-feature",
           "-language:postfixOps",

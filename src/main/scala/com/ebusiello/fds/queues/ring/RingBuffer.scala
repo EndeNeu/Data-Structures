@@ -19,14 +19,14 @@ final class RingBuffer[T](size: Int, val head: RingBufferNode[T] = new EmptyRing
    * TODO insert is O(N) because we need the length of the list.
    * TODO maybe avoid using a linked list?
    */
-  override def enqueue(value: T): RingBuffer[T] =
-    if (head.length() == size) new RingBuffer[T](size, head.pointer.enqueue(value))
-    else new RingBuffer[T](size, head.enqueue(value))
+  override def append(value: T): RingBuffer[T] =
+    if (head.length() == size) new RingBuffer[T](size, head.pointer.append(value))
+    else new RingBuffer[T](size, head.append(value))
 
   /**
    * Dequeue always removes the first inserted element which in our case is the head.
    */
-  override def dequeue: RingBuffer[T] =
+  override def pop: RingBuffer[T] =
     new RingBuffer[T](size, head.pointer)
 
   def last: T =

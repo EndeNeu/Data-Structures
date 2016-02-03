@@ -4,9 +4,9 @@ import com.ebusiello.fds.tree.binaries.GenericBinaryTree
 import com.ebusiello.fds.tree.generic.tree.BalanceableTree
 
 /**
-  * In an AVL tree, the heights of the two child subtrees of any node differ by at most one;
-  * if at any time they differ by more than one, rebalancing is done to restore this property.
-  */
+ * In an AVL tree, the heights of the two child subtrees of any node differ by at most one;
+ * if at any time they differ by more than one, rebalancing is done to restore this property.
+ */
 final class AVLTree[T](val head: AVLNode[T]) extends GenericBinaryTree[T, AVLTree, AVLNode] with BalanceableTree[T, AVLTree] {
 
   override def insert(value: T)(implicit ord: Ordering[T]): AVLTree[T] =

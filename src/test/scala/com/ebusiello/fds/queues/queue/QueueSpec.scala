@@ -7,7 +7,7 @@ class QueueSpec extends WordSpecLike with Matchers {
 
   trait TestContext {
     val emptyQueue = new Queue[Int]()
-    val nonEmpty: Queue[Int] = Queue[Int](1).enqueue(2).enqueue(5).enqueue(7).enqueue(8)
+    val nonEmpty: Queue[Int] = Queue[Int](1).append(2).append(5).append(7).append(8)
   }
 
   "Queue" should {
@@ -17,9 +17,9 @@ class QueueSpec extends WordSpecLike with Matchers {
       nonEmpty.isEmpty should be(false)
     }
     "insert" in new TestContext {
-      emptyQueue.enqueue(1).isEmpty should be(false)
-      emptyQueue.enqueue(1).dequeue.isEmpty should be(true)
-      nonEmpty.enqueue(100).top should be(1)
+      emptyQueue.append(1).isEmpty should be(false)
+      emptyQueue.append(1).pop.isEmpty should be(true)
+      nonEmpty.append(100).top should be(1)
 
     }
 
@@ -27,15 +27,15 @@ class QueueSpec extends WordSpecLike with Matchers {
       intercept[QueueException] {
         emptyQueue.top
       }
-      nonEmpty.enqueue(10).top should be(1)
-      emptyQueue.enqueue(1).top should be(1)
+      nonEmpty.append(10).top should be(1)
+      emptyQueue.append(1).top should be(1)
     }
 
     "dequeue" in new TestContext {
-      nonEmpty.enqueue(10).dequeue.top should be(2)
-      nonEmpty.dequeue.dequeue.dequeue.dequeue.top should be(8)
-      nonEmpty.dequeue.dequeue.dequeue.top should be(7)
-      nonEmpty.dequeue.dequeue.top should be(5)
+      nonEmpty.append(10).pop.top should be(2)
+      nonEmpty.pop.pop.pop.pop.top should be(8)
+      nonEmpty.pop.pop.pop.top should be(7)
+      nonEmpty.pop.pop.top should be(5)
     }
 
     "size" in new TestContext {

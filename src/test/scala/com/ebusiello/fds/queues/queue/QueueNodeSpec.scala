@@ -12,8 +12,8 @@ class QueueNodeSpec extends Matchers with WordSpecLike {
 
   "an empty node" should {
     "correctly insert" in new TestContext {
-      emptyNode.enqueue(1).value should be(1)
-      emptyNode.enqueue(1).pointer shouldBe a[EmptyQueueNode[_]]
+      emptyNode.append(1).value should be(1)
+      emptyNode.append(1).pointer shouldBe a[EmptyQueueNode[_]]
     }
 
     "correctly get the size" in new TestContext {
@@ -22,20 +22,20 @@ class QueueNodeSpec extends Matchers with WordSpecLike {
 
     "correctly report if it's empty" in new TestContext {
       emptyNode.isEmpty should be(true)
-      emptyNode.enqueue(1).isEmpty should be(false)
+      emptyNode.append(1).isEmpty should be(false)
     }
 
   }
 
   "a non empty node" should {
     "correctly insert" in new TestContext {
-      node.enqueue(1).value should be(0)
-      node.enqueue(1).pointer.value should be(1)
+      node.append(1).value should be(0)
+      node.append(1).pointer.value should be(1)
     }
 
     "correctly get the size" in new TestContext {
       node.size() should be(1)
-      node.enqueue(2).size() should be(2)
+      node.append(2).size() should be(2)
     }
 
     "correctly report if it's empty" in new TestContext {
@@ -44,7 +44,7 @@ class QueueNodeSpec extends Matchers with WordSpecLike {
 
     "throw when getting the previous" in new TestContext {
       node.pointer shouldBe a[EmptyQueueNode[_]]
-      node.enqueue(0).pointer.value should be(0)
+      node.append(0).pointer.value should be(0)
     }
   }
 

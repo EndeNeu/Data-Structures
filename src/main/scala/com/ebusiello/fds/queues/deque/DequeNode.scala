@@ -10,19 +10,13 @@ class DequeNode[T](val value: T, val pointer: DequeNode[T]) extends GenericQueue
   /**
    * Adds an item onto the end of the queue.
    */
-  override def enqueue(mValue: T): DequeNode[T] =
-    new DequeNode[T](value, pointer.enqueue(mValue))
+  def append(mValue: T): DequeNode[T] =
+    new DequeNode[T](value, pointer.append(mValue))
 
   /*def last: T = previous match {
     case e: EmptyDequeNode[T] => value
     case _ => previous.last
   }*/
-
-  /**
-   * Append is propagated until we find the empty node.
-   */
-  def append(mValue: T): DequeNode[T] =
-    new DequeNode[T](value, pointer.append(mValue))
 
   /**
    * if the pointer points to an empty node it means this is the last node, pop it and return an empty node;
@@ -37,4 +31,17 @@ class DequeNode[T](val value: T, val pointer: DequeNode[T]) extends GenericQueue
     }
   }
 
+  /**
+   * Removes the first entered element.
+   */
+  override def pop(): DequeNode[T] =
+    if(pointer.isEmpty) new EmptyDequeNode[T]
+    else new DequeNode[T](value, pointer.pop())
+
+  /**
+   * returns the first entered element
+   */
+  override def top(): T =
+    if(pointer.isEmpty) value
+    else pointer.top()
 }

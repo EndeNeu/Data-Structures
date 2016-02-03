@@ -4,8 +4,8 @@ import com.ebusiello.fds.queues.GenericQueueNode
 
 class RingBufferNode[T](val value: T, val pointer: RingBufferNode[T]) extends GenericQueueNode[T, RingBufferNode] {
 
-  override def enqueue(mValue: T): RingBufferNode[T] =
-    new RingBufferNode[T](value, pointer.enqueue(mValue))
+  override def append(mValue: T): RingBufferNode[T] =
+    new RingBufferNode[T](value, pointer.append(mValue))
 
   override def isEmpty: Boolean =
     false
@@ -18,4 +18,13 @@ class RingBufferNode[T](val value: T, val pointer: RingBufferNode[T]) extends Ge
   def length(): Int =
     1 + pointer.length()
 
+  /**
+   * Removes the first entered element.
+   */
+  override def pop(): RingBufferNode[T] = ???
+
+  /**
+   * returns the first entered element
+   */
+  override def top(): T = ???
 }

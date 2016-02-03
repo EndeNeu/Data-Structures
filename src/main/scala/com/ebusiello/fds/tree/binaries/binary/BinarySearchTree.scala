@@ -4,8 +4,8 @@ import com.ebusiello.fds.tree.binaries.GenericBinaryTree
 import com.ebusiello.fds.tree.generic.node.BalanceableNode
 
 /**
-  * https://en.wikipedia.org/wiki/Binary_search_tree
-  */
+ * https://en.wikipedia.org/wiki/Binary_search_tree
+ */
 final class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableNode[T, BinarySearchTree] {
 
   override def insert(value: T)(implicit ord: Ordering[T]): BinarySearchTree[T] =

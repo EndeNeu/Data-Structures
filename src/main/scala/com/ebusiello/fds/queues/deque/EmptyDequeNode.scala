@@ -4,9 +4,6 @@ import com.ebusiello.fds.queues.QueueException
 
 final class EmptyDequeNode[T] extends DequeNode[T](null.asInstanceOf[T], null) {
 
-  override def enqueue(mValue: T): DequeNode[T] =
-    new DequeNode[T](mValue, new EmptyDequeNode[T])
-
   override def isEmpty: Boolean =
     true
 
@@ -15,4 +12,7 @@ final class EmptyDequeNode[T] extends DequeNode[T](null.asInstanceOf[T], null) {
 
   override def popLast: DequeNode[T] =
     throw new QueueException("pop on empty node")
+
+  override def toString: String =
+    "E"
 }
