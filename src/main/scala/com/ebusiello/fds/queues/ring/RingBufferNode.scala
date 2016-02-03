@@ -18,13 +18,4 @@ class RingBufferNode[T](val value: T, val next: RingBufferNode[T]) extends Gener
   def length(): Int =
     1 + next.length()
 
-  /**
-   * Removes the first entered element.
-   */
-  override def pop(): RingBufferNode[T] = ???
-
-  /**
-   * returns the first entered element
-   */
-  override def top(): T = ???
 }
