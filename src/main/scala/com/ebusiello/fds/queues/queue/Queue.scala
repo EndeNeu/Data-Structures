@@ -13,7 +13,7 @@ import com.ebusiello.fds.queues.{ GenericQueue, QueueException }
  *                                 Dequeue
  *
  * The queue is actually reversed, it holds a reference to the last element of the queue and every node has a reference to his previous node.
-  * This allows o(1) inserts but you get back o(n) pop and top.
+ * This allows o(1) inserts but you get back o(n) pop and top.
  */
 final class Queue[T](val head: QueueNode[T] = new EmptyQueueNode[T]) extends GenericQueue[T, Queue, QueueNode] {
 
@@ -21,20 +21,20 @@ final class Queue[T](val head: QueueNode[T] = new EmptyQueueNode[T]) extends Gen
    * Adds an item onto the tail of the queue.
    */
   override def append(mValue: T): Queue[T] =
-    new Queue[T](new QueueNode[T](mValue, head))
+    new Queue[T](head.append(mValue))
 
   /**
    * Removes the item from the front of the queue.
    */
   override def pop: Queue[T] =
-    new Queue[T](head.pop())
+    new Queue[T](head.next)
 
   /**
    * Returns the item at the front of the queue.
    */
   override def top: T = head match {
     case e: EmptyQueueNode[T] => throw new QueueException("Top on empty queue.")
-    case n: QueueNode[T] => head.top()
+    case n: QueueNode[T] => head.value
   }
 
 }
