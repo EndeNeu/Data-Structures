@@ -1,0 +1,15 @@
+language: scala
+
+scala:
+  - 2.11.7
+
+script:
+  - sbt coverage test
+
+after_success:
+  - sbt coveralls
+
+# whitelist
+branches:
+  only:
+    - master

@@ -15,10 +15,10 @@ object Build extends Build {
     .flatMap(s => Try(s.toBoolean).toOption)
     .getOrElse(false)
 
-  val projectVersion = new SimpleDateFormat("YYYYMMddHHmmss").format(new Date)
+  val projectVersion = "0.1"
 
   val PFDS = (project in file("."))
-    .baseSettings("PFDS")
+    .baseSettings("Data Structures")
     .settings(libraryDependencies ++= PFDSDependencies)
 
   //.settings(libraryDependencies)
@@ -39,7 +39,6 @@ object Build extends Build {
           "-feature",
           "-language:postfixOps",
           "-language:implicitConversions",
-          "-target:jvm-1.8",
           "-unchecked",
           "-Xcheckinit",
           "-Xfatal-warnings",
