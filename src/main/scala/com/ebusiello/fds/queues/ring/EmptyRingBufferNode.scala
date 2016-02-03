@@ -17,3 +17,4 @@ final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T
     0
 
 }
+

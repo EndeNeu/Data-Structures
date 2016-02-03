@@ -20,7 +20,7 @@ final class RingBuffer[T](size: Int, val head: RingBufferNode[T] = new EmptyRing
    * TODO maybe avoid using a linked list?
    */
   override def append(value: T): RingBuffer[T] =
-    if (head.length() == size) new RingBuffer[T](size, head.next.append(value))
+    if (head.length() == size) new RingBuffer[T](size, head.next.append(value)) // if we reached the tail sip the head.
     else new RingBuffer[T](size, head.append(value))
 
   /**
