@@ -12,6 +12,7 @@ Just a collection of self-implemented data structures.
 - [x] **[Binary Tree](https://en.wikibooks.org/wiki/Data_Structures/Trees#Binary_Search_Trees)**
 - [x] **[AVL Tree](https://en.wikipedia.org/wiki/AVL_tree)**
 - [ ] **[Red-Black Tree](https://en.wikibooks.org/wiki/Data_Structures/Trees#Red-Black_trees)**
+- [ ] **[Heap Tree](https://en.wikipedia.org/wiki/Heap_(data_structure))**
 - [ ] **[B-Tree (N-ary binary tree)](https://en.wikipedia.org/wiki/B-tree)**
 
 #### Stacks and Queues
