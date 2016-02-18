@@ -10,12 +10,17 @@ class RingBufferNode[T](val value: T, val next: RingBufferNode[T]) extends Gener
   override def isEmpty: Boolean =
     false
 
-  def last: T = next match {
-    case e: EmptyRingBufferNode[T] => value
+  def last: Option[T] = next match {
+    case e: EmptyRingBufferNode[T] => Some(value)
     case _ => next.last
   }
 
   def length(): Int =
     1 + next.length()
 
+  override def top: Option[T] = None
+
+  override def pop: RingBufferNode[T] =
+    if (next.isEmpty) new EmptyRingBufferNode[T]
+    else next.pop
 }

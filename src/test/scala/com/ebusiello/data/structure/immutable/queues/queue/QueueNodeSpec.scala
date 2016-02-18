@@ -1,19 +1,18 @@
 package com.ebusiello.data.structure.immutable.queues.queue
 
-import com.ebusiello.data.structure.immutable.queues.QueueException
-import org.scalatest.{ WordSpecLike, Matchers }
+import org.scalatest.{ Matchers, WordSpecLike }
 
 class QueueNodeSpec extends Matchers with WordSpecLike {
 
   trait TestContext {
-    val emptyNode = new EmptyQueueNode[Int]()
-    val node = new QueueNode[Int](0, new EmptyQueueNode[Int])
+    val emptyNode = new EmptyQueueLinkedNode[Int]()
+    val node = new QueueLinkedNode[Int](0, new EmptyQueueLinkedNode[Int])
   }
 
   "an empty node" should {
     "correctly insert" in new TestContext {
       emptyNode.append(1).value should be(1)
-      emptyNode.append(1).next shouldBe a[EmptyQueueNode[_]]
+      emptyNode.append(1).next shouldBe a[EmptyQueueLinkedNode[_]]
     }
 
     "correctly get the size" in new TestContext {
@@ -43,7 +42,7 @@ class QueueNodeSpec extends Matchers with WordSpecLike {
     }
 
     "throw when getting the previous" in new TestContext {
-      node.next shouldBe a[EmptyQueueNode[_]]
+      node.next shouldBe a[EmptyQueueLinkedNode[_]]
       node.append(0).next.value should be(0)
     }
 

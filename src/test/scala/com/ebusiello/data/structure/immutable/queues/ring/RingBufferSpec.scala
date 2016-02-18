@@ -1,6 +1,5 @@
 package com.ebusiello.data.structure.immutable.queues.ring
 
-import com.ebusiello.data.structure.immutable.queues.QueueException
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class RingBufferSpec extends WordSpecLike with Matchers {
@@ -19,23 +18,19 @@ class RingBufferSpec extends WordSpecLike with Matchers {
       nonEmpty.pop.pop.isEmpty should be(true)
     }
     "enqueue" in new TestContext {
-      empty.append(1).append(2).append(3).top should be(1)
-      empty.append(1).append(2).pop.top should be(2)
-      empty.append(1).append(2).append(3).pop.pop.top should be(3)
-      empty.append(1).append(2).append(3).append(4).top should be(2)
-      empty.append(1).append(2).append(3).append(4).pop.pop.top should be(4)
-      empty.append(1).append(2).append(3).append(4).append(5).top should be(3)
+      empty.append(1).append(2).append(3).top.get should be(1)
+      empty.append(1).append(2).pop.top.get should be(2)
+      empty.append(1).append(2).append(3).pop.pop.top.get should be(3)
+      empty.append(1).append(2).append(3).append(4).top.get should be(2)
+      empty.append(1).append(2).append(3).append(4).pop.pop.top.get should be(4)
+      empty.append(1).append(2).append(3).append(4).append(5).top.get should be(3)
     }
     "last" in new TestContext {
-      nonEmpty.last should be(1)
+      nonEmpty.last.get should be(1)
     }
 
     "throw when empty on top" in new TestContext {
-      intercept[QueueException] {
-        empty.top
-      }
+      empty.top should be(None)
     }
-
   }
-
 }

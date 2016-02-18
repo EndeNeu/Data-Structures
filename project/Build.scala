@@ -66,7 +66,7 @@ object Build extends Build {
       )
         .settings(scalariformSettings: _*)
         .settings(
-          coverageMinimum := 90,
+          coverageMinimum := 70,
           coverageFailOnMinimum := true
         )
   }
