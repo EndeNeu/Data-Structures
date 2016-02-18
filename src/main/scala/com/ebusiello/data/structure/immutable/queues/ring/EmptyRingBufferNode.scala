@@ -1,7 +1,5 @@
 package com.ebusiello.data.structure.immutable.queues.ring
 
-import com.ebusiello.data.structure.immutable.queues.QueueException
-
 final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T], null) {
 
   override def append(mValue: T): RingBufferNode[T] =
@@ -10,13 +8,19 @@ final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T
   override def isEmpty: Boolean =
     true
 
-  override def last: T =
-    throw new QueueException("last on empty queue.")
+  override def last: Option[T] =
+    None
 
   override def length(): Int =
     0
 
   override def stringify: String =
     "E"
+
+  override def top: Option[T] =
+    None
+
+  override def pop: RingBufferNode[T] =
+    this
 }
 

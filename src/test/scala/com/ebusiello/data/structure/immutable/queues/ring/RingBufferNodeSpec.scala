@@ -1,6 +1,5 @@
 package com.ebusiello.data.structure.immutable.queues.ring
 
-import com.ebusiello.data.structure.immutable.queues.QueueException
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class RingBufferNodeSpec extends WordSpecLike with Matchers {
@@ -22,8 +21,8 @@ class RingBufferNodeSpec extends WordSpecLike with Matchers {
     }
 
     "should return the last" in new TestContext {
-      nonEmpty.last should be(1)
-      nonEmpty.append(2).last should be(2)
+      nonEmpty.last.get should be(1)
+      nonEmpty.append(2).last.get should be(2)
     }
 
     "correctly return the length" in new TestContext {
@@ -48,9 +47,7 @@ class RingBufferNodeSpec extends WordSpecLike with Matchers {
     }
 
     "should return en exception on last" in new TestContext {
-      intercept[QueueException] {
-        empty.last
-      }
+      empty.last should be(None)
     }
 
     "correctly return the length" in new TestContext {

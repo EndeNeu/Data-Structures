@@ -19,6 +19,10 @@ private[queues] trait GenericQueueNode[T, S[T] <: GenericQueueNode[T, S]] {
    */
   def append(mValue: T): S[T]
 
+  def top: Option[T]
+
+  def pop: S[T]
+
   def isEmpty: Boolean
 
   def size(): Int =

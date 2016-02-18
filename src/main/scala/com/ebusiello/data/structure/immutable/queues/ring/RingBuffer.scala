@@ -1,13 +1,13 @@
 package com.ebusiello.data.structure.immutable.queues.ring
 
-import com.ebusiello.data.structure.immutable.queues.{ GenericQueue, QueueException }
+import com.ebusiello.data.structure.immutable.queues.GenericLinkedQeueue
 
 /**
  * RingBuffer is virtual, the nodes are a linked list where the last node points to an empty one
  * like in any normal queue, cyclicity is enforced by the queue which keeps track of the list length,
  * if the maximum length is reached drop the head and point to the second element.
  */
-final class RingBuffer[T](size: Int, val head: RingBufferNode[T] = new EmptyRingBufferNode[T]) extends GenericQueue[T, RingBuffer, RingBufferNode] {
+final class RingBuffer[T](size: Int, val head: RingBufferNode[T] = new EmptyRingBufferNode[T]) extends GenericLinkedQeueue[T, RingBuffer, RingBufferNode] {
 
   /**
    * Disadvantages of using a linked list, to know if the ring has reached
@@ -29,15 +29,15 @@ final class RingBuffer[T](size: Int, val head: RingBufferNode[T] = new EmptyRing
   override def pop: RingBuffer[T] =
     new RingBuffer[T](size, head.next)
 
-  def last: T =
+  def last: Option[T] =
     head.last
 
   override def isEmpty: Boolean =
     head.isEmpty
 
-  override def top: T = head match {
-    case e: EmptyRingBufferNode[T] => throw new QueueException("top on empty queue.")
-    case n: RingBufferNode[T] => n.value
+  override def top: Option[T] = head match {
+    case e: EmptyRingBufferNode[T] => None
+    case n: RingBufferNode[T] => Some(n.value)
   }
 
 }
