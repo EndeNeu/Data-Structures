@@ -1,4 +1,4 @@
-package com.ebusiello.data.structure.generic
+package com.ebusiello.data.structure.mutable.queues
 
 private[structure] trait GenericMutableQueue[T] {
 

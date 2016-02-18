@@ -2,7 +2,7 @@ package com.ebusiello.data.structure.immutable.stacks
 
 import scala.language.higherKinds
 
-private[stacks] trait GenericStackNode[T, S[_]] {
+private[stacks] trait GenericStackLinkedNode[T, S[_]] {
 
   def previous: S[T]
 

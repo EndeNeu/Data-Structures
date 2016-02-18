@@ -2,11 +2,11 @@ package com.ebusiello.data.structure.immutable.stacks
 
 import scala.language.higherKinds
 
-private[stacks] trait GenericStack[T, S[_]] {
+private[stacks] trait GenericLinkedStack[T, S[_]] {
 
   def push(mValue: T): S[T]
 
-  def top: T
+  def top: Option[T]
 
   def pop: S[T]
 

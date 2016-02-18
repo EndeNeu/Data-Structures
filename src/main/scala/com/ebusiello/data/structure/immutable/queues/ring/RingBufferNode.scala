@@ -1,8 +1,8 @@
 package com.ebusiello.data.structure.immutable.queues.ring
 
-import com.ebusiello.data.structure.immutable.queues.GenericQueueNode
+import com.ebusiello.data.structure.immutable.queues.GenericLinkedQueueNode
 
-class RingBufferNode[T](val value: T, val next: RingBufferNode[T]) extends GenericQueueNode[T, RingBufferNode] {
+class RingBufferNode[T](val value: T, val next: RingBufferNode[T]) extends GenericLinkedQueueNode[T, RingBufferNode] {
 
   override def append(mValue: T): RingBufferNode[T] =
     new RingBufferNode[T](value, next.append(mValue))

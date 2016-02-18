@@ -2,7 +2,7 @@ package com.ebusiello.data.structure.immutable.queues
 
 import scala.language.higherKinds
 
-private[queues] trait GenericQueueNode[T, S[T] <: GenericQueueNode[T, S]] {
+private[queues] trait GenericLinkedQueueNode[T, S[T] <: GenericLinkedQueueNode[T, S]] {
 
   /**
    * The value held by this node.
