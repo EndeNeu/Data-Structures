@@ -1,7 +1,5 @@
 package com.ebusiello.data.structure.mutable.queues
 
-import com.ebusiello.data.structure.generic.GenericMutableQueue
-
 import scala.reflect.ClassTag
 
 /**

@@ -3,7 +3,7 @@ package com.ebusiello.data.structure.immutable.stacks.stack
 /**
  * Represents the end of a linked list.
  */
-private[stack] final class EmptyStackNode[T] extends StackNode[T](null.asInstanceOf[T], null) {
+private[stack] final class EmptyStackLinkedNode[T] extends StackLinkedNode[T](null.asInstanceOf[T], null) {
 
   /**
    * We return this instead of creating an exception to avoid problems when popping a stack with one element.
@@ -14,7 +14,7 @@ private[stack] final class EmptyStackNode[T] extends StackNode[T](null.asInstanc
    *
    * calling pop makes the node [1] look for the [E] next.
    */
-  override def previous: EmptyStackNode[T] =
+  override def previous: EmptyStackLinkedNode[T] =
     this
 
   override def isEmpty: Boolean =
