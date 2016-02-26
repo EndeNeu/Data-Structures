@@ -1,6 +1,6 @@
 # Data Structures
 
-[![Build Status](https://travis-ci.org/EndeNeu/Purely-Functional-Data-Structures.svg?branch=master)](https://travis-ci.org/EndeNeu/Purely-Functional-Data-Structures)
+[![Build Status](https://travis-ci.org/EndeNeu/Data-Structures.svg?branch=master)](https://travis-ci.org/EndeNeu/Data-Structures)
 
 Just a collection of self-implemented data structures.
 
