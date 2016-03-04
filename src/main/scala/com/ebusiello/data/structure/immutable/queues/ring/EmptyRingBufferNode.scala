@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.queues.ring
 
-final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T], null) {
+private[ring] final class EmptyRingBufferNode[T] extends RingBufferNode[T](null.asInstanceOf[T], null) {
 
   override def append(mValue: T): RingBufferNode[T] =
     new RingBufferNode[T](mValue, new EmptyRingBufferNode[T])

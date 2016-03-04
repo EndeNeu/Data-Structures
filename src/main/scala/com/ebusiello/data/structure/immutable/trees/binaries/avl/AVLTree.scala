@@ -7,7 +7,9 @@ import com.ebusiello.data.structure.immutable.trees.generic.tree.BalanceableTree
  * In an AVL tree, the heights of the two child subtrees of any node differ by at most one;
  * if at any time they differ by more than one, rebalancing is done to restore this property.
  */
-final class AVLTree[T](val head: AVLNode[T]) extends GenericBinaryTree[T, AVLTree, AVLNode] with BalanceableTree[T, AVLTree] {
+final class AVLTree[T] private (val head: AVLNode[T]) extends GenericBinaryTree[T, AVLTree, AVLNode] with BalanceableTree[T, AVLTree] {
+
+  def this() = this(new EmptyAVLNode[T])
 
   override def insert(value: T)(implicit ord: Ordering[T]): AVLTree[T] =
     if (isEmpty) new AVLTree[T](new AVLNode[T](value, new EmptyAVLNode[T], new EmptyAVLNode[T]))

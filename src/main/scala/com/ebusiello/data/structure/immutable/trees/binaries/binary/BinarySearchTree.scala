@@ -6,7 +6,9 @@ import com.ebusiello.data.structure.immutable.trees.generic.node.BalanceableNode
 /**
  * https://en.wikipedia.org/wiki/Binary_search_tree
  */
-final class BinarySearchTree[T](val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableNode[T, BinarySearchTree] {
+final class BinarySearchTree[T] private (val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableNode[T, BinarySearchTree] {
+
+  def this() = this(new EmptyBinarySearchNode[T])
 
   override def insert(value: T)(implicit ord: Ordering[T]): BinarySearchTree[T] =
     if (isEmpty) new BinarySearchTree[T](new BinarySearchNode[T](value, new EmptyBinarySearchNode[T], new EmptyBinarySearchNode[T]))

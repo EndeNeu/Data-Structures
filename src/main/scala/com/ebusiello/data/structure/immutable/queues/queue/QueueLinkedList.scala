@@ -15,7 +15,9 @@ import com.ebusiello.data.structure.immutable.queues.GenericLinkedQeueue
  * The queue is not reversed, it holds a reference to the last inserted element of the queue and every node has a
  * reference to the next node, this allows o(1) inserts but you get back o(N) pop and top.
  */
-final class QueueLinkedList[T](val head: QueueLinkedNode[T] = new EmptyQueueLinkedNode[T]) extends GenericLinkedQeueue[T, QueueLinkedList, QueueLinkedNode] {
+final class QueueLinkedList[T] private (val head: QueueLinkedNode[T]) extends GenericLinkedQeueue[T, QueueLinkedList, QueueLinkedNode] {
+
+  def this() = this(new EmptyQueueLinkedNode[T])
 
   /**
    * Adds an item onto the tail of the queue.

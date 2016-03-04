@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.queues.queue
 
-final class EmptyQueueLinkedNode[T]() extends QueueLinkedNode[T](null.asInstanceOf[T], null) {
+private[queue] final class EmptyQueueLinkedNode[T]() extends QueueLinkedNode[T](null.asInstanceOf[T], null) {
 
   override def isEmpty: Boolean =
     true

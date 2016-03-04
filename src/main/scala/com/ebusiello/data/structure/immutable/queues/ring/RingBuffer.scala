@@ -7,7 +7,10 @@ import com.ebusiello.data.structure.immutable.queues.GenericLinkedQeueue
  * like in any normal queue, cyclicity is enforced by the queue which keeps track of the list length,
  * if the maximum length is reached drop the head and point to the second element.
  */
-final class RingBuffer[T](size: Int, val head: RingBufferNode[T] = new EmptyRingBufferNode[T]) extends GenericLinkedQeueue[T, RingBuffer, RingBufferNode] {
+final class RingBuffer[T] private (size: Int, val head: RingBufferNode[T]) extends GenericLinkedQeueue[T, RingBuffer, RingBufferNode] {
+
+  def this() = this(0, new EmptyRingBufferNode[T])
+  def this(size: Int) = this(size, new EmptyRingBufferNode[T])
 
   /**
    * Disadvantages of using a linked list, to know if the ring has reached

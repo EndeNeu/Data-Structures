@@ -5,7 +5,7 @@ import com.ebusiello.data.structure.immutable.queues.GenericLinkedQueueNode
 /**
  * A node hold a value and a reference to the previous node in the queue.
  */
-class QueueLinkedNode[T](val value: T, val next: QueueLinkedNode[T]) extends GenericLinkedQueueNode[T, QueueLinkedNode] {
+private[queue] class QueueLinkedNode[T](val value: T, val next: QueueLinkedNode[T]) extends GenericLinkedQueueNode[T, QueueLinkedNode] {
 
   /**
    * Adds an item onto the end of the queue.

@@ -15,7 +15,9 @@ import com.ebusiello.data.structure.immutable.stacks.GenericLinkedStack
  *
  *
  */
-final class StackLinked[T](head: StackLinkedNode[T] = new EmptyStackLinkedNode[T]) extends GenericLinkedStack[T, StackLinked] {
+final class StackLinked[T] private (head: StackLinkedNode[T]) extends GenericLinkedStack[T, StackLinked] {
+
+  def this() = this(new EmptyStackLinkedNode[T])
 
   /**
    * Pushing a value changes the head of the stack and the current head becomes
