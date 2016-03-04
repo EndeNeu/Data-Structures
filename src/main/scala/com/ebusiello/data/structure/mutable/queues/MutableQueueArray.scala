@@ -7,7 +7,7 @@ import scala.reflect.ClassTag
  * so the head of the array is the first element inserted in the queue
  * while the last of the array is the last one inserted.
  */
-final class QueueArray[T: ClassTag]() extends GenericMutableQueue[T] {
+final class MutableQueueArray[T: ClassTag]() extends GenericMutableQueue[T] {
 
   private val queue = scala.collection.mutable.ArrayBuffer.empty[T]
   private var queueSize = 0
