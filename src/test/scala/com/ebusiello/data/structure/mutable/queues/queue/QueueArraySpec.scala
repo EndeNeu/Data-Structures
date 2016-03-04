@@ -1,12 +1,12 @@
 package com.ebusiello.data.structure.mutable.queues.queue
 
-import com.ebusiello.data.structure.mutable.queues.QueueArray
+import com.ebusiello.data.structure.mutable.queues.MutableQueueArray
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class QueueArraySpec extends WordSpecLike with Matchers {
 
   trait TestContext {
-    val queue = new QueueArray[Int]()
+    val queue = new MutableQueueArray[Int]()
   }
 
   "a mutable QueueArray" should {

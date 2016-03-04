@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.mutable.stacks
 
-import com.ebusiello.data.structure.mutable.queues.QueueArray
+import com.ebusiello.data.structure.mutable.queues.MutableQueueArray
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class StackArraySpec extends WordSpecLike with Matchers {
