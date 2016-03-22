@@ -2,7 +2,7 @@ package com.ebusiello.data.structure.immutable.stacks.stack
 
 import org.scalatest.{ Matchers, WordSpecLike }
 
-class StackSpec extends WordSpecLike with Matchers {
+class StackLinkedSpec extends WordSpecLike with Matchers {
 
   trait TestContext {
     val emptyStack = StackLinked.empty[Int]

@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.stacks.stack
 
-import com.ebusiello.data.structure.immutable.stacks.GenericLinkedStack
+import com.ebusiello.data.structure.immutable.stacks.{GenericLinkedStack, GenericStackLinkedNode}
 
 /**
  * LIFO
@@ -50,4 +50,44 @@ object StackLinked {
 
   def apply[T](value: T) =
     new StackLinked[T](new StackLinkedNode[T](value, new EmptyStackLinkedNode[T]))
+}
+
+/**
+  * Nodes are implemented as linked lists, every node holds a value and the pointer to the previous value.
+  */
+private[stack] class StackLinkedNode[T](val value: T, pointer: StackLinkedNode[T]) extends GenericStackLinkedNode[T, StackLinkedNode] {
+
+  /**
+    * Pointer holds a reference to the next element in the list.
+    *
+    * @return
+    */
+  override def previous: StackLinkedNode[T] =
+    pointer
+
+  override def isEmpty: Boolean =
+    false
+
+}
+
+/**
+  * Represents the end of a linked list.
+  */
+private[stack] final class EmptyStackLinkedNode[T] extends StackLinkedNode[T](null.asInstanceOf[T], null) {
+
+  /**
+    * We return this instead of creating an exception to avoid problems when popping a stack with one element.
+    * Pop operations on nodes need to check the pointer's pointer to know the actual status and if there's one node
+    * and this would throw exception we would have problem:
+    *
+    * [1] -> [E]
+    *
+    * calling pop makes the node [1] look for the [E] next.
+    */
+  override def previous: EmptyStackLinkedNode[T] =
+    this
+
+  override def isEmpty: Boolean =
+    true
+
 }

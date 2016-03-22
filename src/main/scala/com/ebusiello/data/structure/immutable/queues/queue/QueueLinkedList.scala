@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.queues.queue
 
-import com.ebusiello.data.structure.immutable.queues.GenericLinkedQeueue
+import com.ebusiello.data.structure.immutable.queues.{GenericLinkedQeueue, GenericLinkedQueueNode}
 
 /**
  * FIFO
@@ -44,4 +44,41 @@ final class QueueLinkedList[T] private (val head: QueueLinkedNode[T]) extends Ge
 object QueueLinkedList {
   def apply[T](value: T): QueueLinkedList[T] =
     new QueueLinkedList[T](new QueueLinkedNode[T](value, new EmptyQueueLinkedNode[T]))
+}
+
+/**
+  * A node hold a value and a reference to the previous node in the queue.
+  */
+private[queue] class QueueLinkedNode[T](val value: T, val next: QueueLinkedNode[T]) extends GenericLinkedQueueNode[T, QueueLinkedNode] {
+
+  /**
+    * Adds an item onto the end of the queue.
+    */
+  override def append(mValue: T): QueueLinkedNode[T] =
+    new QueueLinkedNode[T](value, next.append(mValue))
+
+  override def isEmpty: Boolean =
+    false
+
+  override def top: Option[T] =
+    if (next.isEmpty) Some(value)
+    else next.top
+
+  override def pop: QueueLinkedNode[T] =
+    if (next.isEmpty) new EmptyQueueLinkedNode[T]
+    else new QueueLinkedNode[T](value, next.pop)
+}
+
+private[queue] final class EmptyQueueLinkedNode[T]() extends QueueLinkedNode[T](null.asInstanceOf[T], null) {
+
+  override def isEmpty: Boolean =
+    true
+
+  override def append(mValue: T): QueueLinkedNode[T] =
+    new QueueLinkedNode[T](mValue, new EmptyQueueLinkedNode[T])
+
+  override def size(): Int = 0
+
+  override def stringify: String =
+    "E"
 }
