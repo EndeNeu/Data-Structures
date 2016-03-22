@@ -7,7 +7,7 @@ import com.ebusiello.data.structure.immutable.queues.GenericLinkedQeueue
  * like in any normal queue, cyclicity is enforced by the queue which keeps track of the list length,
  * if the maximum length is reached drop the head and point to the second element.
  */
-final class RingBuffer[T] private (size: Int, val head: RingBufferNode[T]) extends GenericLinkedQeueue[T, RingBuffer, RingBufferNode] {
+final class RingBufferLinked[T] private (size: Int, val head: RingBufferNode[T]) extends GenericLinkedQeueue[T, RingBufferLinked, RingBufferNode] {
 
   def this() = this(0, new EmptyRingBufferNode[T])
   def this(size: Int) = this(size, new EmptyRingBufferNode[T])
@@ -22,15 +22,15 @@ final class RingBuffer[T] private (size: Int, val head: RingBufferNode[T]) exten
    * TODO insert is O(N) because we need the length of the list.
    * TODO maybe avoid using a linked list?
    */
-  override def append(value: T): RingBuffer[T] =
-    if (head.length() == size) new RingBuffer[T](size, head.next.append(value)) // if we reached the tail sip the head.
-    else new RingBuffer[T](size, head.append(value))
+  override def append(value: T): RingBufferLinked[T] =
+    if (head.length() == size) new RingBufferLinked[T](size, head.next.append(value)) // if we reached the tail sip the head.
+    else new RingBufferLinked[T](size, head.append(value))
 
   /**
    * Dequeue always removes the first inserted element which in our case is the head.
    */
-  override def pop: RingBuffer[T] =
-    new RingBuffer[T](size, head.next)
+  override def pop: RingBufferLinked[T] =
+    new RingBufferLinked[T](size, head.next)
 
   def last: Option[T] =
     head.last

@@ -41,7 +41,7 @@ final class QueueArray[T: ClassTag] private (private val queue: Array[T], privat
     else new QueueArray[T](queue.init, queueSize - 1)
   }
 
-  def size(): Int =
+  def length(): Int =
     queueSize
 
   def stringify(): String =

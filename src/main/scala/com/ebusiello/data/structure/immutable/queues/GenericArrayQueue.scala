@@ -7,7 +7,7 @@ trait GenericArrayQueue[T, S[T] <: GenericArrayQueue[T, S]] {
    */
   def append(mValue: T): S[T]
 
-  def size(): Int
+  def length(): Int
 
   def stringify(): String
 

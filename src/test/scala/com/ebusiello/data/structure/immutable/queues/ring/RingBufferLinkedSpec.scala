@@ -2,11 +2,11 @@ package com.ebusiello.data.structure.immutable.queues.ring
 
 import org.scalatest.{ Matchers, WordSpecLike }
 
-class RingBufferSpec extends WordSpecLike with Matchers {
+class RingBufferLinkedSpec extends WordSpecLike with Matchers {
 
   trait TestContext {
-    val empty = new RingBuffer[Int](3)
-    val nonEmpty = new RingBuffer[Int](3).append(2).append(1)
+    val empty = new RingBufferLinked[Int](3)
+    val nonEmpty = new RingBufferLinked[Int](3).append(2).append(1)
   }
 
   "CyclicQueue" should {

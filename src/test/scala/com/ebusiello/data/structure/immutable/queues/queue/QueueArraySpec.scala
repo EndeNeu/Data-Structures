@@ -16,7 +16,7 @@ class QueueArraySpec extends WordSpecLike with Matchers {
 
       val newQueue = queue.append(1).append(4).append(9)
 
-      newQueue.size() should be(3)
+      newQueue.length() should be(3)
       newQueue.top.get should be(1)
       newQueue.pop.top.get should be(4)
     }
