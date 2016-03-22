@@ -15,4 +15,6 @@ trait GenericArrayQueue[T, S[T] <: GenericArrayQueue[T, S]] {
 
   def pop: S[T]
 
+  def top: Option[T]
+
 }

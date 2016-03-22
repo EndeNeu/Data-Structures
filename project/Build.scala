@@ -4,7 +4,6 @@ import java.util.Date
 import sbt.Keys._
 import sbt._
 import scoverage.ScoverageSbtPlugin.ScoverageKeys._
-import com.typesafe.sbt.SbtScalariform._
 import Dependencies._
 
 import scala.util.Try
@@ -64,7 +63,6 @@ object Build extends Build {
         fork in run := true,
         parallelExecution in Global := parExec
       )
-        .settings(scalariformSettings: _*)
         .settings(
           coverageMinimum := 70,
           coverageFailOnMinimum := true
