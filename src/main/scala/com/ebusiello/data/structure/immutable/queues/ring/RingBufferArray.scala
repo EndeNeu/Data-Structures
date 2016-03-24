@@ -15,7 +15,7 @@ import scala.reflect.ClassTag
  *     |
  *    pointer
  */
-final class RingBufferArray[T: ClassTag] private (val buffer: Array[T], val pointer: Int, val size: Int, val currentSize: Int) extends GenericArrayQueue[T, RingBufferArray] {
+final class RingBufferArray[T: ClassTag] private (private val buffer: Array[T], private val pointer: Int, private val size: Int, private val currentSize: Int) extends GenericArrayQueue[T, RingBufferArray] {
 
   // TODO pointers hell to avoid array shifting, how can this be refactored in a more readable way?
 

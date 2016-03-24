@@ -17,4 +17,6 @@ trait GenericArrayQueue[T, S[T] <: GenericArrayQueue[T, S]] {
 
   def top: Option[T]
 
+  def isFull: Boolean
+
 }

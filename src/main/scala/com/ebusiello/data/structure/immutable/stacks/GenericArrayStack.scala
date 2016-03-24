@@ -12,4 +12,6 @@ private[stacks] trait GenericArrayStack[T, S[T] <: GenericArrayStack[T, S]] {
 
   def isEmpty: Boolean
 
+  def nonEmpty: Boolean =
+    !isEmpty
 }

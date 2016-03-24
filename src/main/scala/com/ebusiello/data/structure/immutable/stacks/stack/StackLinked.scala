@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.stacks.stack
 
-import com.ebusiello.data.structure.immutable.stacks.{GenericLinkedStack, GenericStackLinkedNode}
+import com.ebusiello.data.structure.immutable.stacks.{StackException, GenericLinkedStack, GenericStackLinkedNode}
 
 /**
  * LIFO
@@ -38,7 +38,7 @@ final class StackLinked[T] private (head: StackLinkedNode[T]) extends GenericLin
     !isEmpty
 
   override def pop: StackLinked[T] = head match {
-    case empty: EmptyStackLinkedNode[T] => this
+    case empty: EmptyStackLinkedNode[T] => throw new StackException("Pop on empty stack.")
     case node: StackLinkedNode[T] => new StackLinked[T](node.previous)
   }
 

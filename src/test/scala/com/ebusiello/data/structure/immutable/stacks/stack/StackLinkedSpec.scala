@@ -1,5 +1,6 @@
 package com.ebusiello.data.structure.immutable.stacks.stack
 
+import com.ebusiello.data.structure.immutable.stacks.StackException
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class StackLinkedSpec extends WordSpecLike with Matchers {
@@ -19,7 +20,9 @@ class StackLinkedSpec extends WordSpecLike with Matchers {
       emptyStack.push(1).top.get should be(1)
     }
     "throw when popping" in new TestContext {
-      emptyStack.pop should be(emptyStack)
+      intercept[StackException] {
+        emptyStack.pop
+      }
     }
 
     "throw when topping" in new TestContext {
