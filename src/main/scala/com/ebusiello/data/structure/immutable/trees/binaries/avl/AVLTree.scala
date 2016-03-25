@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.trees.binaries.avl
 
-import com.ebusiello.data.structure.immutable.trees.binaries.{GenericBinaryNode, GenericBinaryTree}
+import com.ebusiello.data.structure.immutable.trees.binaries.{BinaryTreeException, GenericBinaryNode, GenericBinaryTree}
 import com.ebusiello.data.structure.immutable.trees.generic.node.{BalanceableNode, RetractableNode, RotableNode, OrderableNode}
 import com.ebusiello.data.structure.immutable.trees.generic.tree.BalanceableTree
 
@@ -17,7 +17,7 @@ final class AVLTree[T] private (val head: AVLNode[T]) extends GenericBinaryTree[
     else new AVLTree[T](head.insert(value).rebalance())
 
   override def remove(v: T)(implicit ord: Ordering[T]): AVLTree[T] =
-    if (isEmpty) this
+    if (isEmpty) throw new BinaryTreeException("Remove on empty tree.")
     else new AVLTree[T](head.remove(v).rebalance())
 
   /**

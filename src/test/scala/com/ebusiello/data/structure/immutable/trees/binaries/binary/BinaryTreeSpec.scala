@@ -1,5 +1,6 @@
 package com.ebusiello.data.structure.immutable.trees.binaries.binary
 
+import com.ebusiello.data.structure.immutable.trees.binaries.BinaryTreeException
 import org.scalatest.{ Matchers, WordSpecLike }
 
 class BinaryTreeSpec extends WordSpecLike with Matchers {
@@ -77,7 +78,9 @@ class BinaryTreeSpec extends WordSpecLike with Matchers {
       n1.head.left.right.left.value should be(37)
       n1.head.left.right.right.value should be(45)
 
-      emptyTree.remove(0).head shouldBe a[EmptyBinarySearchNode[_]]
+      intercept[BinaryTreeException] {
+        emptyTree.remove(0)
+      }
 
       //https://en.wikibooks.org/wiki/Data_Structures/Trees#/media/File:Bstreedeleteleafexample.jpg
       val tree = BinarySearchTree.fromColl[Int, List[Int]](List(50, 90, 100, 30, 20, 40))

@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.trees.binaries.binary
 
-import com.ebusiello.data.structure.immutable.trees.binaries.{GenericBinaryNode, GenericBinaryTree}
+import com.ebusiello.data.structure.immutable.trees.binaries.{BinaryTreeException, GenericBinaryNode, GenericBinaryTree}
 import com.ebusiello.data.structure.immutable.trees.generic.node.{RotableNode, OrderableNode, BalanceableNode}
 
 /**
@@ -15,7 +15,7 @@ final class BinarySearchTree[T] private (val head: BinarySearchNode[T]) extends 
     else new BinarySearchTree[T](head.insert(value))
 
   override def remove(v: T)(implicit ord: Ordering[T]): BinarySearchTree[T] =
-    if (isEmpty) this
+    if (isEmpty) throw new BinaryTreeException("Remove on empty tree.")
     else new BinarySearchTree[T](head.remove(v))
 
   /**
@@ -40,7 +40,7 @@ final class BinarySearchTree[T] private (val head: BinarySearchNode[T]) extends 
    * Rebalance a tree, usually after a map, would be nice to handle at node level but currently
    * the problem is that the tree needs to be rebalanced at each rotation because
    * it may have changed the relation between the previous node and the one currently rotated
-   * which may also leed to another rotation, for now the only way is to start a rebalance from
+   * which may also lead to another rotation, for now the only way is to start a rebalance from
    * the head every time the rotation reach the end of the tree, if the tree isn't changing we
    * are done with the rebalancing.
    */
@@ -87,8 +87,8 @@ private[binary] class BinarySearchNode[T](val value: T, val left: BinarySearchNo
     else new BinarySearchNode(value, left, right.insert(newValue))
 
   /**
-    * Remov a node from the tree, replace it with the left leaf if non empty, else with the right leaf
-    * if notempty, else simpli an empty node.
+    * Remove a node from the tree, replace it with the left leaf if non empty, else with the right leaf
+    * if not empty, else simply an empty node.
     *
     * htps://n.wikibooks.org/wiki/Data_Structures/Trees#Deleting_an_item_from_a_binary_search_tree
     *
@@ -115,7 +115,7 @@ private[binary] class BinarySearchNode[T](val value: T, val left: BinarySearchNo
   }
 
   /**
-    * Rotate a treestarting from the right node.
+    * Rotate a tree starting from the right node.
     * https://en.wikbooks.org/wiki/Data_Structures/Trees#/media/File:Bstreedeletenotrightchildexample.jpg
     */
   override protected def rotateNode(): BinarySearchNode[T] = {

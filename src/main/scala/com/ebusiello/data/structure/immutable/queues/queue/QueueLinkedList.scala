@@ -1,6 +1,6 @@
 package com.ebusiello.data.structure.immutable.queues.queue
 
-import com.ebusiello.data.structure.immutable.queues.{GenericLinkedQeueue, GenericLinkedQueueNode}
+import com.ebusiello.data.structure.immutable.queues.{QueueException, GenericLinkedQeueue, GenericLinkedQueueNode}
 
 /**
  * FIFO
@@ -29,7 +29,7 @@ final class QueueLinkedList[T] private (val head: QueueLinkedNode[T]) extends Ge
    * Removes the item from the front of the queue.
    */
   override def pop: QueueLinkedList[T] =
-    if (head.isEmpty) this
+    if (head.isEmpty) throw new QueueException("Pop on empty queue.")
     else new QueueLinkedList[T](head.pop)
 
   /**
