@@ -2,7 +2,7 @@ package com.ebusiello.data.structure.immutable.trees.generic.tree
 
 import scala.language.higherKinds
 
-trait SortableTree[T, S[_]] extends Tree[T] {
+trait SortableTree[T, S[_]] {
   def sort(direction: Direction)(implicit ord: Ordering[T]): S[T]
 }
 
