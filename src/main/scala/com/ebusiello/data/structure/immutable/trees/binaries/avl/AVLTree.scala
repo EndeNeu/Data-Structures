@@ -1,7 +1,7 @@
 package com.ebusiello.data.structure.immutable.trees.binaries.avl
 
 import com.ebusiello.data.structure.immutable.trees.binaries.{BinaryTreeException, GenericBinaryNode, GenericBinaryTree}
-import com.ebusiello.data.structure.immutable.trees.generic.node.{BalanceableNode, RetractableNode, RotableNode, OrderableNode}
+import com.ebusiello.data.structure.immutable.trees.generic.node.{BalanceableNode, OrderableNode, RebalancableNode, RotableNode}
 import com.ebusiello.data.structure.immutable.trees.generic.tree.BalanceableTree
 
 /**
@@ -33,7 +33,7 @@ final class AVLTree[T] private (val head: AVLNode[T]) extends GenericBinaryTree[
       val rebalanced = new AVLTree[T](previousTree.head.resort())
       // folding keeps the elemnt order, if the tree hasn't rotated the order will be the same
       // and we need to break the loop
-      if (rebalanced.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2) == previousTree.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2))
+      if (rebalanced.foldTree(Vector.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2) == previousTree.foldTree(Vector.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2))
         rebalanced
       // otherwise the tree still needs rebalancing.
       else
@@ -52,7 +52,7 @@ object AVLTree {
     new AVLTree[T](new EmptyAVLNode[T])
 }
 
-private[avl] class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] with RetractableNode[T, AVLNode] with BalanceableNode[T, AVLNode] {
+private[avl] class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] with RebalancableNode[T, AVLNode] with BalanceableNode[T, AVLNode] {
 
   override def insert(newValue: T)(implicit ord: Ordering[T]): AVLNode[T] = {
     if (newValue == value) this // guard against duplicates.

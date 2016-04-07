@@ -50,7 +50,7 @@ final class BinarySearchTree[T] private (val head: BinarySearchNode[T]) extends 
       val rebalanced = new BinarySearchTree[T](previousTree.head.resort())
       // folding keeps the element order, if the tree hasn't rotated the order will be the same
       // and we need to break the loop
-      if (rebalanced.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2) == previousTree.foldTree(List.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2))
+      if (rebalanced.foldTree(Vector.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2) == previousTree.foldTree(Vector.empty[T])((acc, curr) => acc :+ curr)((a1, a2) => a1 ++ a2))
         rebalanced
       // otherwise the tree still needs rebalancing.
       else
