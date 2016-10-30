@@ -1,12 +1,13 @@
 package com.ebusiello.data.structure.immutable.trees.binaries.binary
 
 import com.ebusiello.data.structure.immutable.trees.binaries.{BinaryTreeException, GenericBinaryNode, GenericBinaryTree}
-import com.ebusiello.data.structure.immutable.trees.generic.node.{RotableNode, OrderableNode, BalanceableNode}
+import com.ebusiello.data.structure.immutable.trees.generic.node.{BalanceableNode, OrderableNode, RotableNode}
+import com.ebusiello.data.structure.immutable.trees.generic.tree.BalanceableTree
 
 /**
  * https://en.wikipedia.org/wiki/Binary_search_tree
  */
-final class BinarySearchTree[T] private (val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableNode[T, BinarySearchTree] {
+final class BinarySearchTree[T] private (val head: BinarySearchNode[T]) extends GenericBinaryTree[T, BinarySearchTree, BinarySearchNode] with BalanceableTree[T, BinarySearchTree] {
 
   def this() = this(new EmptyBinarySearchNode[T])
 
@@ -32,9 +33,9 @@ final class BinarySearchTree[T] private (val head: BinarySearchNode[T]) extends 
    * 2 E E 7           -2 EE -7                 -7 E E -2
    *
    */
-  override def map[V](f: (T) => V)(implicit ord: Ordering[T], ord2: Ordering[V]): BinarySearchTree[V] =
+  override def map[V](f: (T) => V)(implicit ord: Ordering[V]): BinarySearchTree[V] =
     if (isEmpty) new BinarySearchTree[V](new EmptyBinarySearchNode[V])
-    else new BinarySearchTree[V](head.map(f)).resort()(ord2)
+    else new BinarySearchTree[V](head.map(f)).resort()
 
   /**
    * Rebalance a tree, usually after a map, would be nice to handle at node level but currently

@@ -1,7 +1,7 @@
 package com.ebusiello.data.structure.immutable.trees.binaries.avl
 
 import com.ebusiello.data.structure.immutable.trees.binaries.{BinaryTreeException, GenericBinaryNode, GenericBinaryTree}
-import com.ebusiello.data.structure.immutable.trees.generic.node.{BalanceableNode, RetractableNode, RotableNode, OrderableNode}
+import com.ebusiello.data.structure.immutable.trees.generic.node.{BalanceableNode, RebalanceableNode, RotableNode, OrderableNode}
 import com.ebusiello.data.structure.immutable.trees.generic.tree.BalanceableTree
 
 /**
@@ -23,7 +23,7 @@ final class AVLTree[T] private (val head: AVLNode[T]) extends GenericBinaryTree[
   /**
    * Map a tree to another tree, no need to balance the tree, depth is balanced on insert.
    */
-  override def map[V](f: (T) => V)(implicit ord: Ordering[T], ord2: Ordering[V]): AVLTree[V] =
+  override def map[V](f: (T) => V)(implicit ord: Ordering[V]): AVLTree[V] =
     if (isEmpty) new AVLTree[V](new EmptyAVLNode[V])
     else new AVLTree[V](head.map(f)).resort()
 
@@ -52,7 +52,7 @@ object AVLTree {
     new AVLTree[T](new EmptyAVLNode[T])
 }
 
-private[avl] class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] with RetractableNode[T, AVLNode] with BalanceableNode[T, AVLNode] {
+private[avl] class AVLNode[T](val value: T, val left: AVLNode[T], val right: AVLNode[T]) extends GenericBinaryNode[T, AVLNode] with OrderableNode[T, AVLNode] with RotableNode[T, AVLNode] with RebalanceableNode[T, AVLNode] with BalanceableNode[T, AVLNode] {
 
   override def insert(newValue: T)(implicit ord: Ordering[T]): AVLNode[T] = {
     if (newValue == value) this // guard against duplicates.
